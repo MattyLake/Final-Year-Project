@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  app:
+    image: my-node-app
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: production
+    volumes:
+      - .:/usr/src/app
+    command: npm start

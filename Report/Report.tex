@@ -1,0 +1,106 @@
+\documentclass{article}
+
+\usepackage{a4wide}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[latin1]{inputenc} %input font encoding
+\usepackage[T1]{fontenc} % output font encoding
+\usepackage{listings}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\title{Visual Epidemic Simulation}
+\author{Matthew Lakin}
+\date{October 2024 - May 2025}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+    \vspace*{\fill}
+    \textbf{\Large{Project Supervisor: Dr. Hossein Nevisi}}
+    \vspace*{\fill}
+\end{center}
+\thispagestyle{empty}
+
+\newpage
+
+\tableofcontents
+
+
+\newpage
+
+\section{Abstract}
+This project intends to create a visual simulation of an epidemic. Using publically available data from the COVID-19 epidemic, the simulation will represent the data in a visual format similar to a dashboard. The simulation will be created using a Dockerised Java environment, with the simulation itself being written in Java.
+\newpage
+
+\section{Introduction}
+\newpage
+
+\section{Problem Domain}
+\subsection{Minimum Viable Product}
+I have identified the minimal requirements for this project to be successful.
+\begin{enumerate}
+    \item Front end
+    \begin{enumerate}
+        \item The front end must show a map of the Earth.
+        \item The map will render polygon and country data.
+        \item The front end must show a timeline of the epidemic.
+        \item The individual countries must be clickable.
+        \item Clicking a country will show the number of cases and deaths per week.
+        \item The user must be able to scrub through the timeline.
+        \item The user must be able to select data from a CSV file to be displayed.
+    \end{enumerate}
+    \item Back end
+    \begin{enumerate}
+        \item The back end will be using a node.js server.
+        \item The epidemic data will be stored in a csv file.
+        \item The polygon data will be stored in a GeoJSON file.
+        \item The node.js server will be dockerised.
+    \end{enumerate}
+\end{enumerate}
+\newpage
+\subsection{Stretch Goals}
+For this project, the following requirements have been identified:
+\begin{enumerate}
+    \item The application must be able to input premade epidemic data.
+    \begin{enumerate}
+        \item The data will be in the form of a CSV file.
+        \item The data will contain the country, date, number of cases, number of deaths per week.
+        \item The data will be publically available from the COVID-19 epidemic.
+    \end{enumerate}
+    \item The application must be able to display the data in a visual format.
+    \begin{enumerate}
+        \item The data will be displayed in a dashboard format.
+        \item The map of the Earth will use mapping data from GeoJSON.
+        \item The user will be able to scrub through the data to see the progression of the epidemic.
+        \item The user will be able to click each country for a more detailed view.
+        \item The user will be able to see the number of cases and deaths per week.
+    \end{enumerate}
+\end{enumerate}
+\newpage
+
+\section{Methodology}
+\textbf{\LARGE{Waterfall}}
+\newpage
+
+\section{Technical Solution}
+\newpage
+
+\section{Results and Analysis}
+\newpage
+
+\section{Conclusion}
+\newpage
+
+
+
+
+\end{document}

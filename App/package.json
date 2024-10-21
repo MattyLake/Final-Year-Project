@@ -1,0 +1,19 @@
+{
+    "name": "my-node-app",
+    "version": "1.0.0",
+    "description": "nodejs image demo",
+    "author": "Sammy the Shark <sammy@example.com>",
+    "license": "MIT",
+    "main": "app.js",
+    "keywords": [
+      "nodejs",
+      "bootstrap",
+      "express"
+    ],
+    "scripts": {
+    "start": "node app.js"
+    },
+    "dependencies": {
+      "express": "^4.16.4"
+    }
+  }
