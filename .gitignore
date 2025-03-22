@@ -1,1 +1,15 @@
 Jan Deliverable
+
+App/package-lock.json
+App/node_modules
+
+Report/*.aux
+Report/*.bbl
+Report/*.blg
+Report/*.fdb_latexmk
+Report/*.fls
+Report/*.log
+Report/*.out
+Report/*.synctex.gz
+Report/*.synctex(busy)
+Report/*.toc
