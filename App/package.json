@@ -1,19 +1,21 @@
 {
-    "name": "my-node-app",
-    "version": "1.0.0",
-    "description": "nodejs image demo",
+    "name": "pandemic-visualiser",
+    "version": "1.0",
+    "description": "A node.js app which represents pandemic data in a visual format",
     "author": "Matthew Lakin",
     "license": "MIT",
-    "main": "app.js",
+    "main": "router.js",
     "keywords": [
-      "nodejs",
-      "bootstrap",
-      "express"
+        "nodejs",
+        "bootstrap",
+        "express"
     ],
     "scripts": {
-    "start": "node app.js"
+        "start": "node router.js"
     },
     "dependencies": {
-      "express": "^4.16.4"
+        "d3": "^7.0.0",
+        "express": "^4.16.4",
+        "pandemic-visualiser": "file:"
     }
-  }
+}
