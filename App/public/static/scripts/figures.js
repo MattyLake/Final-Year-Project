@@ -8,12 +8,12 @@ const width = 100;
 const height = 100;
 const radius = Math.min(width, height) / 2;
 
-loadData('USA', 1619910000).then(function(fetchData) {
-    console.log(fetchData);
-    const data = [fetchData.cases, fetchData.deaths, fetchData.susceptible];
-    console.log(data);
-    drawPie(data);
-});
+// loadData('USA', 1619910000).then(function(fetchData) {
+//     console.log(fetchData);
+//     const data = [fetchData.cases, fetchData.deaths, fetchData.susceptible];
+//     console.log(data);
+//     drawPie(data);
+// });
 
 function drawPie(data) {
     // TODO: Need a good colour scale for piechart
@@ -61,5 +61,14 @@ function drawPie(data) {
                 const labels = ['Cases', 'Deaths', 'Susceptible'];
                 return labels[i] + ": " + d.value;
             });
+        
+    // Add title to the pie chart
+    svg.append("text")
+        .attr("x", 0)
+        .attr("y", -height / 2 + 20)
+        .attr("text-anchor", "middle")
+        .style("font-size", "16px")
+        .style("font-weight", "bold")
+        .text("Placeholder");
 
 }

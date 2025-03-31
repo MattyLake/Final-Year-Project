@@ -2,6 +2,7 @@ Jan Deliverable
 
 App/package-lock.json
 App/node_modules
+App/data/pandemicDataOld.json
 
 Report/*.aux
 Report/*.bbl

@@ -5,7 +5,7 @@ body {
                          "timeline info";
     grid-template-columns: 2fr 16rem;
     grid-template-rows: 9fr 1fr;
-    gap: 0.25rem;
+    /* gap: 0.25rem; */
     color: white;
     background-color: #111111;
     margin: 0;
@@ -25,6 +25,8 @@ body > div {
     height: 100%;
     grid-area: map;
     background-color: #111111;
+    /* box-sizing: border-box;
+    border: 0.25rem solid white; */
 }
 
 #info-container {
@@ -63,10 +65,28 @@ body > div {
     height: 100%;
     grid-area: timeline;
     background-color: #333333;
+    display: flex;
+    flex-direction: row;
+    /* gap: 0.25rem; */
+}
+
+#timeline-container > div {
+    background-color: #555555;
+    margin: 0.25rem;
+    height: calc(100% - 0.5rem);
+    margin-right: 0;
+}
+
+#timeline-container > #timeline {
+    width: 80%;
+    background-color: #555555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .slider {
-    width: 80%;
+    width: calc(100% - 0.5rem);
     height: 25px;
     background: #d3d3d3;
     outline: none; /* Remove outline */
@@ -80,6 +100,11 @@ body > div {
 }
 
 #timeline-container > #timeline-date {
-    margin-left: 3rem;
+    width: 20%;
+    background-color: #555555;
+    margin-left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 1.5rem;
 }
