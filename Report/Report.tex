@@ -27,12 +27,39 @@
     urlcolor=black
 }
 
-\title{Visualisation of Epidemics Simulation}
-\author{Matthew Lakin\\\textbf{Supervisor: Hossein Nevisi}}
-\date{October 2024 - May 2025}
-
 \begin{document}
-\maketitle
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+            
+        \Huge
+        \textbf{Visulation of Epidemics Simulation}
+            
+        \vspace{0.5cm}
+        \LARGE
+        Final Year Project Report
+            
+        \vspace{1.5cm}
+            
+        \textbf{Matthew Lakin}
+            
+        \vfill
+            
+        Project Supervisor: Hossein Nevisi
+            
+        \Large
+        October 2024 - May 2025\\
+
+        \vspace{0.8cm}
+
+        \includegraphics[width=0.4\textwidth]{Loughborough-University-Lboro-Logo.png}
+
+        \vspace{2cm}
+            
+    \end{center}
+\end{titlepage}
+
 \newpage
 
 \tableofcontents
@@ -697,6 +724,29 @@ There are multiple more examples like this, here is a list of countries I will b
 \end{center}
 
 \newpage
+
+Initially, I wanted to use UNIX timestamps to store the date, but I have since changed my mind. This is because of of how the HTML slider tag works. The slider expects consistent step values, and UNIX timestamps are not consistent due to daylight savings time.
+
+To combat this, I am storing data in the string form of "YYYY-ww" where YYYY is the year and ww is the week number. This is a consistent format and will work with the HTML slider tag. I will have a function to convert the string to a date object when I need to use it.
+
+\section{Frontend}
+
+\subsection{World Map}
+The world map in this project was a success in planning. I used the D3.js library to render the map and it worked well. The map is interactive and allows the user to zoom in on countries.
+
+I was able to take advantage of features in D3.js like transisition and zoom for a smoother feel to the map. The chloropleth map is a good way to represent the data and allows the user to see the hotspots of the virus.
+
+I used the GeoJSON polygon data to render the map. This had many beneficial side effects, like: Choice of projection, the multipolygon feature of GeoJSON, rendering the data in SVG format, and the ability to use D3.js features like transitions and zoom.
+
+\subsection{Info Panel}
+Originally, I planned to use a stacked area chart for this project, but I have since changed my mind. The reason is that the stacked area chart is not a good way to represent the data. The populations of the susceptible and the cases/deaths are very disproportionate so a linear scale would not work. Instead, I will be using a logarithmic scale for the y-axis. This will allow me to show the data in a more meaningful way.
+
+The area chart will be a simple line chart with the x-axis being the date and the y-axis being the size of the populations. The chart will have a legend to show what each line represents. The chart will also have a title and axis labels.
+
+\section{Backend}
+For the data in my application, I am using the file "interface.js" to load the data from the JSON file. This file is an async module which exports a function to load the data. The function can fetch all data or data specfied in the parameters. The function will return a promise which resolves to the data. This is a simple way to load data from a file and is a common pattern in JavaScript.
+
+This is my first time ever dealing with async functions and promises.
 
 \chapter{Results and Analysis}
 \newpage
