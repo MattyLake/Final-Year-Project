@@ -392,8 +392,26 @@ D3.js is a good choice for this project as it natively supports GeoJSON data whi
 This is exclusively used on a web browser, so I will be using node.js to serve the data to the front end.
 \newpage
 The GeoJSON data has much more information than the COVID-19 data. It includes geometry of the country, information regarding the countries economy, sovereign status, GDP, all in multiple languages. I will be cleaning the data to only include relevant information for this project: country name in English, country code (to link the data with the Covid-19 JSON file) and geometry information. 
-\newpage
 
+\section{Statistical Analysis}
+Statistical analysis is a key part of this project. I will be using statistical analysis to find correlations between the data and other factors. I will be comparing the cumulative cases and deaths of two countries to see if there are any correlations between the two.\\
+
+I also want to make a statistic comparing the number of cases to the gdp per capita of the country to see if there is an inverse correlation between the two. This would be interesting to see richer countries were able to contain the virus better than poorer countries.
+\begin{align}
+\text{Infections} &\propto \frac{1}{\text{GDP Per Capita}}
+\end{align}
+
+If this is the case, I would like to calculate the constant of proportionality. This would be a good indicator of how much money a country needs to spend to contain the virus. \\
+
+I would also like to compare number of cases to other statistics I have available to me in my GeoJSON file. This includes:
+\begin{itemize}
+    \item Population
+    \item Sovereign status
+    \item Type of economy
+    \item etc
+\end{itemize}
+
+\newpage
 \chapter{Technical Solution}
 \section{Cleaning the Data}
 Before I start working on the front end, I need to clean the data. The data from the ECDC is in a JSON format, but it is not in a format that is easy to work with. I need to combine the cases and deaths into one object and add a date field. This will make it easier to work with the data in the front end.
