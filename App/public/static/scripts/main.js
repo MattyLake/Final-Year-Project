@@ -1,4 +1,5 @@
 import { loadPandemicDataForCountry, getUniqueDataKeys } from './interface.js';
+import { drawLogGraphForCountry, updateWeekMarker } from './countryGraph.js';
 
 let baseColour = "#aaaaaa";
 let highlightColour = "#ff0000";
@@ -96,6 +97,7 @@ var countries = d3.json("data/mapPolygonData").then(function(data) {
             }
 
             // Re-render the detail panel
+            drawLogGraphForCountry(appState.selectedCountryCode);
             renderCountryDetails();
         });
 }).then(function() {
@@ -194,6 +196,7 @@ const slider = d3
 
         updateMapColors();
         renderCountryDetails();
+        updateWeekMarker();
     });
 
 d3.select('#timeline')
@@ -310,3 +313,7 @@ d3.select("#play-button")
             animationInterval = null;
         }
     }
+
+export function getAppState() {
+    return appState;
+}
