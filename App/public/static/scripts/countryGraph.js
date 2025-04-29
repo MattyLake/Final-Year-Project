@@ -3,9 +3,9 @@ import { getAppState } from "./main.js";
 const container = document.getElementById('country-graph');
 const containerWidth = container.getBoundingClientRect().width;
 
-window.addEventListener('load', () => {
-    drawLogGraphForCountry(getAppState().selectedCountryCode);
-});
+// window.addEventListener('load', () => {
+//     drawLogGraphForCountry(getAppState().selectedCountryCode);
+// });
 
 // Now set width and height dynamically
 const margin = { top: 20, right: 30, bottom: 40, left: 60 };
@@ -16,7 +16,8 @@ console.log('Container width:', containerWidth, 'Graph width:', width, 'Graph he
 let weekMarker = null; // Declare weekMarker here
 let weekLabel = null; // Declare weekLabel here
 
-const svgLog = d3.select("#graph")
+// Create SVG once
+const svgLog = d3.select("#country-graph")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -38,10 +39,42 @@ const lineDeaths = d3.line()
     .x(d => x(d.date))
     .y(d => y(d.deaths));
 
-const lineSusceptible = d3.line()
-    .x(d => x(d.date))
-    .y(d => y(d.susceptible));
+// Create Lines once
+const casesLine = svgLog.append("path")
+    .attr("class", "line-cases")
+    .attr("fill", "none")
+    .attr("stroke", "red")
+    .attr("stroke-width", 2);
 
+const deathsLine = svgLog.append("path")
+    .attr("class", "line-deaths")
+    .attr("fill", "none")
+    .attr("stroke", "black")
+    .attr("stroke-width", 2);
+
+// Axis groups (optional if you want to update axis dynamically)
+const xAxisGroup = svgLog.append("g")
+    .attr("transform", `translate(0,${height})`)
+    .attr("class", "x-axis");
+
+const yAxisGroup = svgLog.append("g")
+    .attr("class", "y-axis");
+
+// Create Week Marker once
+weekMarker = svgLog.append("line")
+    .attr("class", "week-marker")
+    .attr("y1", 0)
+    .attr("y2", height)
+    .attr("stroke", "white")
+    .attr("stroke-width", 2)
+    .attr("stroke-dasharray", "5,5");
+
+weekLabel = svgLog.append("text")
+    .attr("class", "week-label")
+    .attr("text-anchor", "middle")
+    .attr("y", -5)
+    .attr("fill", "white")
+    .attr("font-size", "12px");
 
 let fullPandemicDataset = {};
 async function loadPandemicDataset() {
@@ -84,123 +117,39 @@ function prepareGraphData(countryData) {
 }
 
 export async function drawLogGraphForCountry(countryCode) {
+    d3.select("#country-graph")
+        .style("visibility", "visible")
+        .style("opacity", 1);
+
     const countryData = getCountryData(countryCode);
 
     if (!countryData) {
         console.error('No data to draw');
+
+        // 👇 Hide the graph if no data
+        d3.select("#country-graph")
+            .style("visibility", "hidden")
+            .style("opacity", 0);
+
         return;
     }
 
     const graphData = prepareGraphData(countryData);
-    console.log('Graph data:', graphData);
 
-    // Clear old graph
-    d3.select("#country-graph").selectAll("*").remove();
+    if (graphData.length === 0) {
+        console.warn('Country has no graph data');
 
-    const svgLog = d3.select("#country-graph")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
+        // 👇 Hide the graph if no graph points
+        d3.select("#country-graph")
+            .style("display", "none")
+            .style("visibility", "hidden")
+            .style("opacity", 0);
 
-    // Domains
-    x.domain(d3.extent(graphData, d => d.date));
-    y.domain([1, d3.max(graphData, d => Math.max(d.susceptible, d.cases, d.deaths))]);
+        return;
+    }
 
-    // X Axis
-    svgLog.append("g")
-        .attr("transform", `translate(0,${height})`)
-        //.call(d3.axisBottom(x).ticks(10).tickFormat(d3.timeFormat("%Y-%W")));
-        .call(d3.axisBottom(x).ticks(0).tickFormat(d3.timeFormat("")));
-
-    // Y Axis
-    svgLog.append("g")
-        .call(d3.axisLeft(y).ticks(10, "~s"));
-
-    // Lines
-    // svgLog.append("path")
-    //     .datum(graphData)
-    //     .attr("fill", "none")
-    //     .attr("stroke", "blue")
-    //     .attr("stroke-width", 2)
-    //     .attr("d", lineSusceptible);
-
-    svgLog.append("path")
-        .datum(graphData)
-        .attr("fill", "none")
-        .attr("stroke", "red")
-        .attr("stroke-width", 2)
-        .attr("d", lineCases);
-
-    svgLog.append("path")
-        .datum(graphData)
-        .attr("fill", "none")
-        .attr("stroke", "black")
-        .attr("stroke-width", 2)
-        .attr("d", lineDeaths);
-    
-    // // X Axis Label
-    // svgLog.append("text")
-    //     .attr("text-anchor", "middle")
-    //     .attr("x", width / 2)
-    //     .attr("y", height + margin.bottom - 5)
-    //     .text("Time (Weeks)")
-    //     .attr("fill", "white");
-
-    // // Y Axis Label
-    // svgLog.append("text")
-    //     .attr("text-anchor", "middle")
-    //     .attr("transform", "rotate(-90)")
-    //     .attr("x", -height / 2)
-    //     .attr("y", -margin.left + 20)
-    //     .text("Population (log scale)")
-    //     .attr("fill", "white");
-    
-    // const legendData = [
-    //     { name: "Susceptible", color: "blue" },
-    //     { name: "Cases", color: "red" },
-    //     { name: "Deaths", color: "black" }
-    // ];
-    
-    // // Create one 'g' per legend item
-    // const legend = svgLog.selectAll(".legend")
-    //     .data(legendData)
-    //     .enter()
-    //     .append("g")
-    //     .attr("class", "legend")
-    //     .attr("transform", (d, i) => `translate(0,${i * 20})`);
-    
-    // // Draw colored squares
-    // legend.append("rect")
-    //     .attr("x", width - 18)
-    //     .attr("width", 18)
-    //     .attr("height", 18)
-    //     .style("fill", d => d.color);
-    
-    // // Draw legend text
-    // legend.append("text")
-    //     .attr("x", width - 24)
-    //     .attr("y", 9)
-    //     .attr("dy", "0.35em")
-    //     .style("text-anchor", "end")
-    //     .style("fill", "white")
-    //     .text(d => d.name);
-
-    weekMarker = svgLog.append("line")
-        .attr("class", "week-marker")
-        .attr("y1", 0)
-        .attr("y2", height)
-        .attr("stroke", "white")
-        .attr("stroke-width", 2)
-        .attr("stroke-dasharray", "5,5"); // dotted line
-    
-    weekLabel = svgLog.append("text")
-        .attr("class", "week-label")
-        .attr("text-anchor", "middle")
-        .attr("y", -5) // position slightly above the graph
-        .attr("fill", "white")
-        .attr("font-size", "12px");
+    updateGraphLines(graphData); // Smoothly transition to new country's data
+    updateWeekMarker(); // Update week marker to current week
 }
 
 await loadPandemicDataset(); // Load the dataset first
@@ -225,4 +174,41 @@ export function updateWeekMarker() {
         .duration(200)
         .attr("x", x(currentDate))
         .text(getAppState().currentWeek); // set text to current week
+}
+
+function updateGraphLines(graphData) {
+    // Update x and y domain based on new data
+    x.domain(d3.extent(graphData, d => d.date));
+    y.domain([1, d3.max(graphData, d => Math.max(d.susceptible, d.cases, d.deaths))]);
+
+    // Update axis if needed (optional)
+    d3.select(".x-axis")
+        .transition()
+        .duration(1000)
+        .call(d3.axisBottom(x).ticks(0));
+
+    d3.select(".y-axis")
+        .transition()
+        .duration(1000)
+        .call(d3.axisLeft(y).ticks(10, "~s"));
+
+
+    // Animate line transition
+    d3.select(".line-cases")
+        .datum(graphData)
+        .transition()
+        .duration(1000) // 1 second smooth
+        .attr("d", lineCases);
+
+    d3.select(".line-deaths")
+        .datum(graphData)
+        .transition()
+        .duration(1000)
+        .attr("d", lineDeaths);
+
+    // d3.select(".line-susceptible")
+    //     .datum(graphData)
+    //     .transition()
+    //     .duration(1000)
+    //     .attr("d", lineSusceptible);
 }

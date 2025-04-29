@@ -45,7 +45,6 @@ body > div {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     background-color: #555555;
     margin: 0.25rem;
     width: calc(100%-0.5rem);
@@ -60,6 +59,7 @@ body > div {
 
 #info-container > .content {
     height: 90%;
+    flex-direction: column;
 }
 
 #line-chart {
@@ -114,7 +114,11 @@ body > div {
 }
 
 #country-graph {
+    display: block;
     min-width: 100%;
     margin: 0.25rem;
     background-color: #bbbbbb;
+    visibility: hidden; /* hide it but preserve size */
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
