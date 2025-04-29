@@ -2,11 +2,11 @@ import { loadPandemicDataForCountry, getUniqueDataKeys } from './interface.js';
 import { drawLogGraphForCountry, updateWeekMarker } from './countryGraph.js';
 
 let baseColour = "#aaaaaa";
-let highlightColour = "#ff0000";
+let highlightColour = "#5BC0EB";
 let clickColour = "#aa4444";
 let borderColour = "#333333";
 let strokeWeight = 0.25;
-let hoverStrokeWeight = 1;
+let hoverStrokeWeight = 2;
 let clickStrokeWeight = 2;
 const datesArray = await getUniqueDataKeys().then(function(data) {
     return data;
@@ -15,6 +15,8 @@ const datesArray = await getUniqueDataKeys().then(function(data) {
 const pandemicData = await d3.json("data/pandemicData").then(function(data) {
     return data;
 });
+
+populateCountrySuggestions();
 
 let appState = {
     selectedCountry: null,
@@ -50,17 +52,31 @@ var countries = d3.json("data/mapPolygonData").then(function(data) {
         .attr("d", path)
         .attr("fill", baseColour)
         .attr("stroke", borderColour)
-        .attr("stroke-width", 0.25)
+        .attr("stroke-width", strokeWeight)
         .on("mouseover", function(event, d) {
             d3.select(this)
                 .style("cursor", "pointer")
                 .attr("stroke", highlightColour)
                 .attr("stroke-width", hoverStrokeWeight);
+            
+            d3.select("#info-container > .header")
+                .text(d.properties.name) // hovered country's name
+                .style("color", "gray");
         })
         .on("mouseout", function(event, d) {
             d3.select(this)
                 .attr("stroke", borderColour)
                 .attr("stroke-width", strokeWeight);
+
+            if (appState.selectedCountry) {
+                    d3.select("#info-container > .header")
+                        .text(appState.selectedCountry)
+                        .style("color", "white");
+                } else {
+                    d3.select("#info-container > .header")
+                        .text("Select a country")
+                        .style("color", "white");
+                }
         })
         .on('click', async function(event, d) {
             // d is the GeoJSON feature for the clicked country
@@ -316,4 +332,55 @@ d3.select("#play-button")
 
 export function getAppState() {
     return appState;
+}
+
+const searchInput = document.getElementById('search');
+
+searchInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        const query = searchInput.value.trim().toLowerCase();
+        handleCountrySearch(query);
+    }
+});
+
+function populateCountrySuggestions() {
+    const datalist = document.getElementById('country-options');
+
+    // Clear any old options
+    datalist.innerHTML = "";
+
+    // Loop through all countries
+    Object.values(pandemicData).forEach(country => {
+        const option = document.createElement('option');
+        option.value = country.properties.country;
+        datalist.appendChild(option);
+    });
+}
+
+function handleCountrySearch(query) {
+    const matchingCountry = Object.values(pandemicData).find(country => {
+        return country.properties.country.toLowerCase() === query;
+    });
+
+    if (matchingCountry) {
+        appState.selectedCountry = matchingCountry.properties.country;
+        appState.selectedCountryCode = matchingCountry.properties.country_code;
+        appState.countryPandemicData = matchingCountry;
+
+        d3.select("#info-container > .header")
+                .text(appState.selectedCountry)
+                .style("color", "white");
+        
+        searchInput.value = ''; // Clear the search input
+
+        renderCountryDetails();
+        updateMapColors();
+        drawLogGraphForCountry(matchingCountry.properties.country_code);
+
+        if (zoomMode) {
+            zoomToSelectedCountry();
+        }
+    } else {
+        alert('No matching country found.');
+    }
 }

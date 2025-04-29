@@ -20,10 +20,12 @@
         <div id="timeline"></div>
     </div>
     <div id="info-container">
-        <div class="header">Hover over a country</div>
+        <div class="header">Select a country</div>
         <div class="search">
-            <input type="text" id="search" placeholder="Search for a country">
             <i class="material-icons">search</i>
+            <!-- <input type="text" id="search" placeholder="Search for a country"> -->
+            <input id="search" list="country-options" placeholder="Search country..." />
+            <datalist id="country-options"></datalist>
         </div>
         <div class="content">
             <div id="info-box"></div>
