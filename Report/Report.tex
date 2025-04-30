@@ -8,6 +8,7 @@
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage[svgnames]{xcolor}
+\usepackage{wrapfig}
 
 \usepackage{graphicx}
 \graphicspath{{./images/}}
@@ -131,27 +132,38 @@ For this project, I will use the MoSCoW structure to define the requirements of 
         \item The map will render polygon and country data from a GeoJSON file.
         \item The individual countries must be clickable.
         \begin{itemize}
-            \item Clicking a country will send the user to a new page.
-            \item The new page will show the number of cases and deaths per week.
-            \item The new page will show a graph of the number of cases and deaths per week. 
+            \item Clicking a country will update a panel on the right.
+            \item The panel will have a time-series graph showing the number of cases and deaths in that country over the time period.
+            \item The panel will have another time-series for use in comparison. The user will be able to choose a factor to compare against, such as population, GDP or another country's statistics.
+            \item Highlight the secondary country if applicable.
         \end{itemize}
-        \item The dashboard must show a timeline of the epidemic.
+        \item The dashboard must have a timeline slider of the epidemic.
         \begin{itemize}
-            \item The timeline will be a slider.
             \item The user must be able to scrub through the timeline.
-            \item The timeline will show the current week.
+            \item There will be a "playback" feature which will automatically scrub through the timeline.
+            \item The timeline will show the current week in ISO 8601 format.
         \end{itemize}
-        \item The user must be able to select data from a file to be displayed.
+        \item Search Bar
         \begin{itemize}
-            \item The code will accept a clean JSON file.
-            \item The JSON file will have the same format as the COVID-19 data.
+            \item The user must be able to search for a country by name.
+            \item The search bar will have a dropdown list of countries.
+            \item The dropdown list will be filtered by the user's input.
+            \item If an unknown country is entered, the user will be prompted to enter a valid country name.
+            \item If a valid country is entered, it will be the same as clicking on the country and the text field will be wiped.
+        \end{itemize}
+        \item Reactive and responsive design.
+        \begin{itemize}
+            \item Use of smooth transitions and animations to make the dashboard more visually appealing.
+            \item All graphs and functionalities should be connected to the timeline slider and country selected.
         \end{itemize}
     \end{itemize}
     \item \textbf{\Large{Should Have}}
     \begin{itemize}
         \item Zooming in on the map.
         \begin{itemize}
-            \item This is my most realistic stretch goal. It would require using a library to render the map and allow the user to zoom in and out.
+            \item Adding a button to toggle a "zoom" feature on the map.
+            \item When clicked, the map will zoom into the selected country.
+            \item When clicked again, the map will zoom back out to the world view.
         \end{itemize}
         \item Hotspots on the map.
         \begin{itemize}
@@ -163,7 +175,16 @@ For this project, I will use the MoSCoW structure to define the requirements of 
         \item Analysis of data with other data sources to search for correlations.
         \begin{itemize}
             \item I am currently unsure what data sources I would use for this, but it would be interesting to see if there are any correlations between the spread of the virus and other factors.
+            \item Comparing the number of cases or deaths to different countries.
+            \item Normalising the data to a GDP per capita basis.
         \end{itemize}
+        \item Extensibility to other datasets.
+        \begin{itemize}
+            \item The code should be generic enough to be used for any epidemic data.
+            \item Want to use a generic data format and a script which is able to cast the data into the correct format.
+        \end{itemize}
+        \item Frame updating to resizing the window.
+        \item Removal of spurious and erroneous data at runtime.
     \end{itemize}
     \item \textbf{\Large{Would Have}}
     \begin{itemize}
@@ -199,19 +220,19 @@ The steps of Waterfall I will be following are:
     \item \textbf{\large{Coding}}
     \begin{itemize}
         \item I will be making a web application with node.js. This will require me to create a valid work environment and get the node runtime working on my local machine. I will likely use Docker for this since it is a very easy to work with tool perfect for this application.
-        \item I will mostly be using TypeScript for this project because of type safety and native compatibility with web development. There will also be HTML and CSS for loading the TS canvas and aligning elements.
+        \item I will mostly be using JavaScript for this project because of previous experience and native compatibility with web development. There will also be HTML and CSS for loading the d3 canvas and aligning elements.
         \item Node.js also comes with node package manager which will also be useful for loading the custom packages I plan on using in this project.
     \end{itemize}
     \item \textbf{\large{Testing}}
     \begin{itemize}
-        \item For testing, I will be using a variety of normal, boundary and erroneous tests to check my software for crashes, unexpected results, and vulnerabilities. Using a type-safe language like TypeScript intends to minimise the chances of these happening.
+        \item For testing, I will be using a variety of normal, boundary and erroneous tests to check my software for crashes, unexpected results, and vulnerabilities.
         \item I also plan on having 3rd-party applicants to test my application. They would have a list of things to do in the application so I can analyse the ease of use.
         \item I would also ask them to fill in a questionnaire.
     \end{itemize}
     \item \textbf{\large{Operations}}
     \begin{itemize}
         \item I want to deploy my application to a server hosted by the university.
-        \item Node.js applications are commonly deployed onto servers and having a production repository would be a good standard for myself. Pushing to a server from a local git repository is a highly transferable skill which is widely used. Test
+        \item Node.js applications are commonly deployed onto servers and having a production repository would be a good standard for myself. Pushing to a server from a local git repository is a highly transferable skill which is widely used.
     \end{itemize}
 \end{enumerate}
 \section{Gantt Chart}
@@ -352,6 +373,25 @@ This model adds an exposed compartment to the SIR model. For individuals who hav
 The SEIR model is better for simulations than the SIR model since it takes into account the incubation period of the disease. This is important as it is possible for a person to be infected but not yet infectious.\\
 It is beyond the scope of this project to go into detail about the SEIR model, but it is worth noting that the model is more complex and requires more data to solve. The model is also more accurate than the SIR model.
 
+\section{Statistical Analysis}
+Statistical analysis is a key part of this project. I will be using statistical analysis to find correlations between the data and other factors. I will be comparing the cumulative cases and deaths of two countries to see if there are any correlations between the two.\\
+
+I also want to make a statistic comparing the number of cases to the gdp per capita of the country to see if there is an inverse correlation between the two. This would be interesting to see richer countries were able to contain the virus better than poorer countries.
+\begin{align}
+\text{Infections} &\propto \frac{1}{\text{GDP Per Capita}}
+\end{align}
+
+If this is the case, I would like to calculate the constant of proportionality. This would be a good indicator of how much money a country needs to spend to contain the virus. \\
+
+I would also like to compare number of cases to other statistics I have available to me in my GeoJSON file. This includes:
+\begin{itemize}
+    \item Population
+    \item Sovereign status
+    \item Type of economy
+    \item etc
+\end{itemize}
+
+\newpage
 \chapter{Design Review}
 \section{Wireframing}
 I need to work within the constraints of node.js and D3.js for my designs. Below is a wireframe of the dashboard I plan on creating.\\
@@ -393,23 +433,21 @@ This is exclusively used on a web browser, so I will be using node.js to serve t
 \newpage
 The GeoJSON data has much more information than the COVID-19 data. It includes geometry of the country, information regarding the countries economy, sovereign status, GDP, all in multiple languages. I will be cleaning the data to only include relevant information for this project: country name in English, country code (to link the data with the Covid-19 JSON file) and geometry information. 
 
-\section{Statistical Analysis}
-Statistical analysis is a key part of this project. I will be using statistical analysis to find correlations between the data and other factors. I will be comparing the cumulative cases and deaths of two countries to see if there are any correlations between the two.\\
+\section{Chloropleth Maps}
+For this project, I referred to a book on data visualisation by Andy Kirk \cite{andy2019kirk}. The book is a good introduction to maps with data visulalisation as well as the use of colour in maps making it a good resource. \\
 
-I also want to make a statistic comparing the number of cases to the gdp per capita of the country to see if there is an inverse correlation between the two. This would be interesting to see richer countries were able to contain the virus better than poorer countries.
-\begin{align}
-\text{Infections} &\propto \frac{1}{\text{GDP Per Capita}}
-\end{align}
+\begin{wrapfigure}{l}{0.4\textwidth}
+    \begin{center}
+      \includegraphics[width=0.38\textwidth]{chloropleth-example.png}
+    \end{center}
+    \caption{Example Chloropleth Map from Andy Kirk's Book \cite{andy2019kirk}}
+  \end{wrapfigure}
 
-If this is the case, I would like to calculate the constant of proportionality. This would be a good indicator of how much money a country needs to spend to contain the virus. \\
+Choropleth maps are a type of map which uses colour to represent data. The map is divided into regions and each region is coloured based on the data. This is a good way to visualise data as it allows for easy comparison between regions.\\
 
-I would also like to compare number of cases to other statistics I have available to me in my GeoJSON file. This includes:
-\begin{itemize}
-    \item Population
-    \item Sovereign status
-    \item Type of economy
-    \item etc
-\end{itemize}
+The figure on the left is colouring the regions based on different voter populations in Germany. This differs to how I will be using chloropleth. My legend will be a logarithmic scale from white to red to signify the number of cases in that region. The darker the red, the more cases there are in that region.\\
+
+The reason I am choosing a logarithmic scale is due to the disparity of the numbers, especially in the early days of the pandemic. The logarithmic scale allows for a better visualisation of the data as it allows for a wider range of values to be represented. It is commonly the used scale for pandemic data.
 
 \newpage
 \chapter{Technical Solution}
@@ -745,10 +783,9 @@ There are multiple more examples like this, here is a list of countries I will b
 
 Initially, I wanted to use UNIX timestamps to store the date, but I have since changed my mind. This is because of of how the HTML slider tag works. The slider expects consistent step values, and UNIX timestamps are not consistent due to daylight savings time.
 
-To combat this, I am storing data in the string form of "YYYY-ww" where YYYY is the year and ww is the week number. This is a consistent format and will work with the HTML slider tag. I will have a function to convert the string to a date object when I need to use it.
+To combat this, I am storing data in the string form of "YYYY-ww" where YYYY is the year and ww is the week number. This is a consistent format and will work with the HTML slider tag. I will have a function to convert the string to a date object when I need to use it. It is also ISO 8601 compliant, which is a good standard to use.\\
 
 \section{Frontend}
-
 \subsection{World Map}
 The world map in this project was a success in planning. I used the D3.js library to render the map and it worked well. The map is interactive and allows the user to zoom in on countries.
 
@@ -760,6 +797,9 @@ I used the GeoJSON polygon data to render the map. This had many beneficial side
 Originally, I planned to use a stacked area chart for this project, but I have since changed my mind. The reason is that the stacked area chart is not a good way to represent the data. The populations of the susceptible and the cases/deaths are very disproportionate so a linear scale would not work. Instead, I will be using a logarithmic scale for the y-axis. This will allow me to show the data in a more meaningful way.
 
 The area chart will be a simple line chart with the x-axis being the date and the y-axis being the size of the populations. The chart will have a legend to show what each line represents. The chart will also have a title and axis labels.
+
+\section{Search Bar}
+The search bar is a simple input field which is designed to behave the same as just clicking a country. 
 
 \section{Backend}
 For the data in my application, I am using the file "interface.js" to load the data from the JSON file. This file is an async module which exports a function to load the data. The function can fetch all data or data specfied in the parameters. The function will return a promise which resolves to the data. This is a simple way to load data from a file and is a common pattern in JavaScript.
