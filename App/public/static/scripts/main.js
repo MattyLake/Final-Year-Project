@@ -1,5 +1,6 @@
 import { loadPandemicDataForCountry, getUniqueDataKeys } from './interface.js';
-import { drawLogGraphForCountry, updateWeekMarker } from './countryGraph.js';
+import { drawLogGraphForCountry, updateWeekMarkerCountry } from './countryGraph.js';
+import { initComparisonGraph, updateComparisonGraph, updateWeekMarkerComparison } from './comparisonGraph.js';
 
 let baseColour = "#aaaaaa";
 let highlightColour = "#5BC0EB";
@@ -12,11 +13,28 @@ const datesArray = await getUniqueDataKeys().then(function(data) {
     return data;
 });
 
-const pandemicData = await d3.json("data/pandemicData").then(function(data) {
-    return data;
-});
+// const pandemicData = await d3.json("data/pandemicData").then(function(data) {
+//     return data;
+// });
 
-populateCountrySuggestions();
+let fullPandemicDataset = {};
+async function loadPandemicDataset() {
+    try {
+        const response = await fetch("data/pandemicData"); // or wherever your file is
+        if (!response.ok) {
+            throw new Error('Network error');
+        }
+        fullPandemicDataset = await response.json();
+        console.log('Pandemic dataset loaded:', fullPandemicDataset);
+    } catch (error) {
+        console.error('Error loading pandemic dataset:', error);
+    }
+}
+await loadPandemicDataset(); // Load the dataset first
+window.fullPandemicDataset = fullPandemicDataset; // Make it globally accessible
+
+populateCountrySuggestions(); // Function call to populate datalist for searchbar
+initComparisonGraph("#comparison-graph");
 
 let appState = {
     selectedCountry: null,
@@ -24,6 +42,7 @@ let appState = {
     countryPandemicData: null,
     currentWeek: datesArray[0] // Default to the first date in the data
 };
+window.appState = appState; // Make it globally accessible
 
 let mapDiv = document.getElementById("map-container");
 const rect = mapDiv.getBoundingClientRect();
@@ -114,6 +133,7 @@ var countries = d3.json("data/mapPolygonData").then(function(data) {
 
             // Re-render the detail panel
             drawLogGraphForCountry(appState.selectedCountryCode);
+            updateComparisonGraph(fullPandemicDataset);
             renderCountryDetails();
         });
 }).then(function() {
@@ -189,6 +209,60 @@ function zoomToSelectedCountry() {
     });
 }
 
+const colorScale = d3.scaleSequentialLog()
+    .domain([1, 100000]) // minimum and maximum number of cases, using 1 to avoid log(0)
+    .interpolator(d3.interpolateReds);
+
+// Legend for the color scale
+const legendSvg = d3.select("#legend-container svg");
+
+const defs = legendSvg.append("defs");
+
+const gradient = defs.append("linearGradient")
+    .attr("id", "legend-gradient")
+    .attr("x1", "0%")
+    .attr("x2", "100%");
+
+const nStops = 10;
+for (let i = 0; i <= nStops; i++) {
+    gradient.append("stop")
+        .attr("offset", `${(i / nStops) * 100}%`)
+        .attr("stop-color", colorScale(Math.pow(10, (i / nStops) * (Math.log10(100000) - Math.log10(1)) + Math.log10(1))));
+}
+
+const legendWidth = 200;
+const legendHeight = 10;
+
+legendSvg.append("rect")
+    .attr("x", 10)
+    .attr("y", 10)
+    .attr("width", legendWidth)
+    .attr("height", legendHeight)
+    .style("fill", "url(#legend-gradient)");
+
+legendSvg.append("text")
+    .attr("x", 10)
+    .attr("y", 45)
+    .attr("fill", "white") // or a color that fits your theme
+    .attr("font-size", "12px")
+    .text("Weekly Cases (Log Scale)");
+
+const legendScale = d3.scaleLog()
+    .domain([1, 100000])
+    .range([0, legendWidth]);
+
+const legendAxis = d3.axisBottom(legendScale)
+    .ticks(4, "~s")
+    .tickSize(legendHeight + 4);
+
+legendSvg.append("g")
+    .attr("transform", "translate(10,10)")
+    .call(legendAxis)
+    .select(".domain").remove();
+
+
+
+// Timeline slider logic
 const timelineDiv = document.getElementById('timeline');
 const timelineRect = timelineDiv.getBoundingClientRect();
 const timelineWidth = timelineRect.width;
@@ -212,7 +286,8 @@ const slider = d3
 
         updateMapColors();
         renderCountryDetails();
-        updateWeekMarker();
+        updateWeekMarkerCountry();
+        updateWeekMarkerComparison()
     });
 
 d3.select('#timeline')
@@ -234,8 +309,7 @@ function renderCountryDetails() {
 
     if (!appState.countryPandemicData || !appState.countryPandemicData.data) {
         detailDiv.html(`
-            <h2>${appState.selectedCountry}</h2>
-            <p>No pandemic data available for this country.</p>
+            No pandemic data available for this country.
         `);
         return;
     }
@@ -245,23 +319,16 @@ function renderCountryDetails() {
 
     if (data[currentWeek]) {
         detailDiv.html(`
-            <h2>${appState.selectedCountry}</h2>
-            <p>Cases: ${data[currentWeek].cases}</p>
-            <p>Deaths: ${data[currentWeek].deaths}</p>
-            <p>Susceptible: ${appState.countryPandemicData.properties.population - data[currentWeek].cases - data[currentWeek].deaths}</p>
+            Cases: ${data[currentWeek].cases}<br/>
+            Deaths: ${data[currentWeek].deaths}<br/>
+            Susceptible: ${appState.countryPandemicData.properties.population - data[currentWeek].cases - data[currentWeek].deaths}
         `);
     } else {
         detailDiv.html(`
-            <h2>${appState.selectedCountry}</h2>
-            <p>Data for the selected week is not available.</p>
+            Data for the selected week is not available.
         `);
     }
 }
-
-
-const colorScale = d3.scaleSequentialLog()
-    .domain([1, 10000]) // minimum and maximum number of cases, using 1 to avoid log(0)
-    .interpolator(d3.interpolateReds);
 
 function updateMapColors() {
     d3.selectAll('path.country')
@@ -272,7 +339,7 @@ function updateMapColors() {
             let countryCode = d.properties.iso_a3;
             let weekData = null;
             try {
-                weekData = pandemicData[countryCode].data[appState.currentWeek];
+                weekData = fullPandemicDataset[countryCode].data[appState.currentWeek];
             }
             catch (error) {
                 console.error("Error accessing data for country:", countryName, error);
@@ -330,10 +397,6 @@ d3.select("#play-button")
         }
     }
 
-export function getAppState() {
-    return appState;
-}
-
 const searchInput = document.getElementById('search');
 
 searchInput.addEventListener('keydown', function(event) {
@@ -350,7 +413,7 @@ function populateCountrySuggestions() {
     datalist.innerHTML = "";
 
     // Loop through all countries
-    Object.values(pandemicData).forEach(country => {
+    Object.values(fullPandemicDataset).forEach(country => {
         const option = document.createElement('option');
         option.value = country.properties.country;
         datalist.appendChild(option);
@@ -358,7 +421,7 @@ function populateCountrySuggestions() {
 }
 
 function handleCountrySearch(query) {
-    const matchingCountry = Object.values(pandemicData).find(country => {
+    const matchingCountry = Object.values(fullPandemicDataset).find(country => {
         return country.properties.country.toLowerCase() === query;
     });
 

@@ -1,5 +1,3 @@
-import { getAppState } from "./main.js";
-
 const container = document.getElementById('country-graph');
 const containerWidth = container.getBoundingClientRect().width;
 
@@ -72,30 +70,15 @@ weekMarker = svgLog.append("line")
 weekLabel = svgLog.append("text")
     .attr("class", "week-label")
     .attr("text-anchor", "middle")
-    .attr("y", -5)
+    .attr("y", height + 20) // Adjusted to be below the graph
     .attr("fill", "white")
     .attr("font-size", "12px");
 
-let fullPandemicDataset = {};
-async function loadPandemicDataset() {
-    try {
-        const response = await fetch("data/pandemicData"); // or wherever your file is
-        if (!response.ok) {
-            throw new Error('Network error');
-        }
-        fullPandemicDataset = await response.json();
-        console.log('Pandemic dataset loaded:', fullPandemicDataset);
-    } catch (error) {
-        console.error('Error loading pandemic dataset:', error);
-    }
-}
-
-function getCountryData(countryCode) {
+export function getCountryData(countryCode) {
     if (!fullPandemicDataset[countryCode]) {
         console.warn(`No data found for country code ${countryCode}`);
         return null;
     }
-    console.log(`Data for ${countryCode}:`, fullPandemicDataset[countryCode]);
     return fullPandemicDataset[countryCode];
 }
 
@@ -149,19 +132,16 @@ export async function drawLogGraphForCountry(countryCode) {
     }
 
     updateGraphLines(graphData); // Smoothly transition to new country's data
-    updateWeekMarker(); // Update week marker to current week
+    updateWeekMarkerCountry(); // Update week marker to current week
 }
 
-await loadPandemicDataset(); // Load the dataset first
-// drawLogGraphForCountry("GBR"); // Example usage, replace with actual country code
-
-export function updateWeekMarker() {
+export function updateWeekMarkerCountry() {
     if (!weekMarker || !weekLabel) {
         console.warn('Week marker or label not initialized yet.');
         return;
     }
 
-    const currentDate = d3.timeParse("%Y-%W")(getAppState().currentWeek);
+    const currentDate = d3.timeParse("%Y-%W")(appState.currentWeek);
 
     weekMarker
         .transition()
@@ -173,7 +153,7 @@ export function updateWeekMarker() {
         .transition()
         .duration(200)
         .attr("x", x(currentDate))
-        .text(getAppState().currentWeek); // set text to current week
+        .text(appState.currentWeek); // set text to current week
 }
 
 function updateGraphLines(graphData) {
