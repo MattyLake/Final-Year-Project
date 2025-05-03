@@ -4,18 +4,14 @@ import { initComparisonGraph, updateComparisonGraph, updateWeekMarkerComparison 
 
 let baseColour = "#aaaaaa";
 let highlightColour = "#5BC0EB";
-let clickColour = "#aa4444";
+let clickColour = "#318ab0";
 let borderColour = "#333333";
 let strokeWeight = 0.25;
 let hoverStrokeWeight = 2;
-let clickStrokeWeight = 2;
+let clickStrokeWeight = 4;
 const datesArray = await getUniqueDataKeys().then(function(data) {
     return data;
 });
-
-// const pandemicData = await d3.json("data/pandemicData").then(function(data) {
-//     return data;
-// });
 
 let fullPandemicDataset = {};
 async function loadPandemicDataset() {
@@ -31,9 +27,25 @@ async function loadPandemicDataset() {
     }
 }
 await loadPandemicDataset(); // Load the dataset first
+const mapGeoData = await d3.json("data/mapPolygonData");
 window.fullPandemicDataset = fullPandemicDataset; // Make it globally accessible
 
+// Merge GeoJSON properties into pandemicData
+mapGeoData.features.forEach(feature => {
+    const iso = feature.properties.iso_a3;
+    const target = fullPandemicDataset[iso];
+    if (target) {
+        // Merge extra properties (like GDP) from GeoJSON into pandemicData
+        target.extra = feature.properties;
+    }
+});
+
+console.log('Merged pandemic data:', fullPandemicDataset);
+
 populateCountrySuggestions(); // Function call to populate datalist for searchbar
+populateCountrySuggestions("search-container", "country-options");
+populateCountrySuggestions("compare-country-code", "compare-options");
+
 initComparisonGraph("#comparison-graph");
 
 let appState = {
@@ -77,43 +89,62 @@ var countries = d3.json("data/mapPolygonData").then(function(data) {
                 .style("cursor", "pointer")
                 .attr("stroke", highlightColour)
                 .attr("stroke-width", hoverStrokeWeight);
-            
+        
             d3.select("#info-container > .header")
-                .text(d.properties.name) // hovered country's name
+                .text(d.properties.name)
                 .style("color", "gray");
         })
+        
         .on("mouseout", function(event, d) {
+            const countryCode = d.properties.iso_a3;
+        
+            // If this is the selected country, keep the click color
+            const isSelected = appState.selectedCountryCode === countryCode;
+        
             d3.select(this)
-                .attr("stroke", borderColour)
-                .attr("stroke-width", strokeWeight);
-
+                .attr("stroke", isSelected ? clickColour : borderColour)
+                .attr("stroke-width", isSelected ? clickStrokeWeight : strokeWeight);
+        
+            // Restore header
+            const header = d3.select("#info-container > .header");
             if (appState.selectedCountry) {
-                    d3.select("#info-container > .header")
-                        .text(appState.selectedCountry)
-                        .style("color", "white");
-                } else {
-                    d3.select("#info-container > .header")
-                        .text("Select a country")
-                        .style("color", "white");
-                }
+                header.text(appState.selectedCountry).style("color", "white");
+            } else {
+                header.text("Select a country").style("color", "white");
+            }
         })
-        .on('click', async function(event, d) {
-            // d is the GeoJSON feature for the clicked country
-            appState.selectedCountry = d.properties.name; // Adjust based on your GeoJSON
-            appState.selectedCountryCode = d.properties.iso_a3; // Adjust based on your GeoJSON
-            
-            const countryPandemicData = await loadPandemicDataForCountry(d.properties.iso_a3);
+        .on("click", async function(event, d) {
+            const countryName = d.properties.name;
+            const countryCode = d.properties.iso_a3;
+        
+            // Update app state
+            appState.selectedCountry = countryName;
+            appState.selectedCountryCode = countryCode;
+        
+            // Load pandemic data for this country
+            const countryPandemicData = await loadPandemicDataForCountry(countryCode);
             appState.countryPandemicData = countryPandemicData;
         
-            // Set country name in the header
+            // Set header
             d3.select("#info-container > .header")
-                .text(appState.selectedCountry)
+                .text(countryName)
                 .style("color", "white");
-            
-            // Set country data in the info box
+        
+            // Info box loading message
             d3.select("#info-box")
-                .text(`Loading data for ${appState.selectedCountry}...`);
-
+                .text(`Loading data for ${countryName}...`);
+        
+            // Reset all borders
+            d3.selectAll("path.country")
+                .attr("stroke", borderColour)
+                .attr("stroke-width", strokeWeight);
+        
+            // Highlight clicked country
+            d3.select(this)
+                .attr("stroke", clickColour)
+                .attr("stroke-width", clickStrokeWeight);
+        
+            // Optional zoom
             if (zoomMode) {
                 const bounds = path.bounds(d);
                 const dx = bounds[1][0] - bounds[0][0];
@@ -130,9 +161,9 @@ var countries = d3.json("data/mapPolygonData").then(function(data) {
                         d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
                     );
             }
-
-            // Re-render the detail panel
-            drawLogGraphForCountry(appState.selectedCountryCode);
+        
+            // Update detail panel + graphs
+            drawLogGraphForCountry(countryCode);
             updateComparisonGraph(fullPandemicDataset);
             renderCountryDetails();
         });
@@ -318,10 +349,16 @@ function renderCountryDetails() {
     let currentWeek = appState.currentWeek;
 
     if (data[currentWeek]) {
+        // detailDiv.html(`
+        //     Cases: ${data[currentWeek].cases}<br/>
+        //     Deaths: ${data[currentWeek].deaths}<br/>
+        //     Susceptible: ${appState.countryPandemicData.properties.population - data[currentWeek].cases - data[currentWeek].deaths}
+        // `);
         detailDiv.html(`
-            Cases: ${data[currentWeek].cases}<br/>
-            Deaths: ${data[currentWeek].deaths}<br/>
-            Susceptible: ${appState.countryPandemicData.properties.population - data[currentWeek].cases - data[currentWeek].deaths}
+            <span style="color: red">Cases: </span>: ${data[currentWeek].cases}
+            &nbsp;&nbsp;
+            <span style="color: black">Deaths: </span>: ${data[currentWeek].deaths}
+            &nbsp;&nbsp;
         `);
     } else {
         detailDiv.html(`
@@ -406,18 +443,30 @@ searchInput.addEventListener('keydown', function(event) {
     }
 });
 
-function populateCountrySuggestions() {
-    const datalist = document.getElementById('country-options');
+function populateCountrySuggestions(inputId, datalistId = 'country-options') {
+    const datalist = document.getElementById(datalistId) || document.createElement('datalist');
+    datalist.id = datalistId;
 
-    // Clear any old options
+    // Attach to document once
+    if (!datalist.parentElement) {
+        document.body.appendChild(datalist);
+    }
+
+    // Clear old options
     datalist.innerHTML = "";
 
-    // Loop through all countries
+    // Populate with full country names
     Object.values(fullPandemicDataset).forEach(country => {
         const option = document.createElement('option');
-        option.value = country.properties.country;
+        option.value = country.properties.country; // e.g. "France"
         datalist.appendChild(option);
     });
+
+    // Bind datalist to input field
+    const input = document.getElementById(inputId);
+    if (input) {
+        input.setAttribute("list", datalistId);
+    }
 }
 
 function handleCountrySearch(query) {

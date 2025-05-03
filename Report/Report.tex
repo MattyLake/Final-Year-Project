@@ -451,6 +451,21 @@ The reason I am choosing a logarithmic scale is due to the disparity of the numb
 
 \newpage
 \chapter{Technical Solution}
+\section{Node.js}
+Before I start working on any code, I need to set up my development environment. As I discussed in my design section, I will be using node.js to serve data in front end and D3.js to render the data.\\
+
+This is my first time using node.js and web development in general, so I spent a lot of time researching how to set up a node.js server. The first step I took was to install node.js on my local machine. I intend on deploying the application to a server hosted by the university using a Docker container, but I will be developing the application on my local machine.\\
+
+I used the express.js framework to create a simple server with a router to serve the data. I have a diagram of the structure of my router schema below.
+
+\begin{center}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.95\textwidth]{Images/router_scheme.drawio.png}
+        \caption{Data Routing Structure}
+        \label{fig:nodejs_structure}
+    \end{figure}
+\end{center}
 \section{Cleaning the Data}
 Before I start working on the front end, I need to clean the data. The data from the ECDC is in a JSON format, but it is not in a format that is easy to work with. I need to combine the cases and deaths into one object and add a date field. This will make it easier to work with the data in the front end.
 

@@ -58,7 +58,7 @@ body > div {
 
 #info-container > div {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     background-color: #555555;
     margin: 0.25rem;
@@ -69,7 +69,8 @@ body > div {
     margin-bottom: 0;
     font-size: 1.5rem;
     height: 10%;
-    text-wrap-mode: none;
+    display: flex;
+    justify-content: center;
 }
 
 #info-container > .search  {
@@ -156,4 +157,21 @@ body > div {
     visibility: hidden; /* hide it but preserve size */
     opacity: 0;
     transition: opacity 0.5s ease;
+}
+
+#country-graph-container > div {
+    width: 100%;
+}
+
+#info-box,
+#comparison-controls,
+#comparison-values {
+    padding: 8px 12px;
+    margin: 6px;
+    margin-bottom: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* optional for visual clarity */
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.2); /* optional */
+    color: white;
+    font-size: 14px;
 }

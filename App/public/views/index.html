@@ -25,20 +25,22 @@
     </div>
     <div id="info-container">
         <div class="header">Select a country</div>
-        <div class="search">
+        <div class="search" id="search-container">
             <i class="material-icons">search</i>
             <input id="search" list="country-options" placeholder="Search country..." />
             <datalist id="country-options"></datalist>
         </div>
         <div class="content">
-            <div id="info-box"></div>
             <div id="country-graph"></div>
+            <div id="info-box"></div>
             <div id="comparison-graph-container">
                 <div id="comparison-graph"></div>
+                <div id="comparison-values"></div>
                 <div id="comparison-controls">
                     <label>
                         Compare:
-                        <input id="compare-country-code" type="text" placeholder="e.g. FRA" maxlength="3" />
+                        <input id="compare-country-code" placeholder="e.g. United States of America" />
+                        <datalist id="compare-options"></datalist>
                     </label>
                     <select id="compare-metric">
                         <option value="cases">Cases</option>

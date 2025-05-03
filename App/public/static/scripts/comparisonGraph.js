@@ -74,7 +74,8 @@ export function initComparisonGraph(containerSelector) {
 
 export function updateComparisonGraph(fullDataset) {
     const metric = document.getElementById("compare-metric").value;
-    const compareCode = document.getElementById("compare-country-code").value.trim().toUpperCase();
+    const compareEntry = document.getElementById("compare-country-code").value;
+    const compareCode = getCodeFromName(compareEntry) || "USA"; // Default to USA if invalid code is provided
     if (!compareCode || !fullDataset[compareCode]) {
         console.warn(`Invalid or missing compare country code: "${compareCode}"`);
     }
@@ -135,6 +136,7 @@ export function updateWeekMarkerComparison() {
     }
 
     const currentDate = d3.timeParse("%Y-%W")(appState.currentWeek);
+    const currentWeekKey = appState.currentWeek;
 
     weekMarker
         .transition()
@@ -147,6 +149,47 @@ export function updateWeekMarkerComparison() {
         .duration(200)
         .attr("x", x(currentDate))
         .text(appState.currentWeek); // set text to current week
+
+    // Display current values
+    const metric = document.getElementById("compare-metric").value;
+    const normalize = document.getElementById("normalize-toggle").checked;
+    const compareEntry = document.getElementById("compare-country-code").value.trim().toUpperCase() || "USA";
+    const compareCode = getCodeFromName(compareEntry) || "USA"; // Default to USA if invalid code is provided
+    const baseCode = window.appState.selectedCountryCode;
+
+    const baseCountry = window.fullPandemicDataset[baseCode];
+    const compareCountry = window.fullPandemicDataset[compareCode];
+
+    const getValue = (country) => {
+        if (!country || !country.data[currentWeekKey]) return "—";
+
+        const raw = country.data[currentWeekKey][metric];
+        if (!normalize) return raw;
+
+        const gdp = +country.extra?.gdp_md || 0;
+        const pop = +country.properties?.population || 1;
+        const perCapita = gdp > 0 ? gdp * 1_000_000 / pop : 1;
+
+        return (raw / perCapita).toFixed(2);
+    };
+
+    const valueBase = getValue(baseCountry);
+    const valueCompare = getValue(compareCountry);
+
+    const metricLabel = {
+        cases: "Cases",
+        deaths: "Deaths"
+    }[metric] || metric;
+    
+    const labelSuffix = normalize ? " [per GDP]" : "";
+    const fullLabel = `${metricLabel}${labelSuffix}`;
+
+    d3.select("#comparison-values").html(`
+        <strong>${fullLabel}</strong><br>
+        <span style="color: orange">${baseCode}</span>: ${valueBase}
+        &nbsp;&nbsp;
+        <span style="color: steelblue">${compareCode}</span>: ${valueCompare}
+    `);
 }
 
 function prepareCountryLineData(code, metric, fullDataset, normalize = false) {
@@ -155,11 +198,13 @@ function prepareCountryLineData(code, metric, fullDataset, normalize = false) {
 
     const parseWeek = d3.timeParse("%Y-%V");
 
-    const gdpMillion = +country.properties.gdp_md || 0;
+    const gdpMillion = +country.extra?.gdp_md || 0;
     const population = +country.properties.population || 1;
     const gdpPerCapita = (gdpMillion > 0 && population > 0)
     ? (gdpMillion * 1_000_000) / population
     : 1;
+
+    console.log(`Country: ${country.name}, GDP per capita: ${gdpPerCapita}`);
 
     return Object.entries(country.data)
         .map(([week, values]) => {
@@ -175,4 +220,19 @@ function prepareCountryLineData(code, metric, fullDataset, normalize = false) {
             return { date, value };
         })
         .filter(Boolean);
+}
+
+function getCodeFromName(name) {
+    if (!name || typeof name !== "string") return null;
+
+    const upperName = name.trim().toUpperCase();
+
+    for (const [code, country] of Object.entries(fullPandemicDataset)) {
+        const countryName = country.properties.country?.toUpperCase();
+        if (countryName === upperName) {
+            return code;
+        }
+    }
+
+    return null; // not found
 }
