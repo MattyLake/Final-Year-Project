@@ -13,7 +13,16 @@ This repository contains the write-up and application for my Final Year Project 
 
 If you're using a new dataset, the data must be cleaned before being put in the repo.
 I use a Python script to achieve this, which can be found at ./App/data/restructure-json.py.
+I have added the original data to the repository to use to test the script. This data is from the ECDC (European Centre for Disease Prevention and Control) and can be found [here](https://www.ecdc.europa.eu/en/covid-19/data).
 You need to map the data in your JSON file to the data format I use. More information can be found in the Python file.
+To run the Python script, follow:
+
+1. Navigate to directory
+`cd App/data`
+2. Run the Script
+`python restructure-json.py`
+3. A successful run should print `Data successfully transformed and saved to 'pandemicData.json'`
+4. This data is now ready to be used in the application.
 
 ## Running in the node.js Runtime
 
