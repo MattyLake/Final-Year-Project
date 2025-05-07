@@ -9,6 +9,9 @@
 \usepackage{hyperref}
 \usepackage[svgnames]{xcolor}
 \usepackage{wrapfig}
+\usepackage{pgf-pie}
+\usepackage{tikz}
+\usepackage{caption}
 
 \usepackage{graphicx}
 \graphicspath{{./images/}}
@@ -19,6 +22,58 @@
   \chapter*{\bibname}\@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}}{%
   \chapter{Bibliography}}{}{}
 \makeatother
+
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, const},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=4,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+
+\lstset{
+   language=Python,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=4,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
 
 \hypersetup{
     colorlinks,
@@ -35,7 +90,7 @@
         \vspace*{1cm}
             
         \Huge
-        \textbf{Visulation of Epidemics Simulation}
+        \textbf{Visualisation of Pandemics Simulation}
             
         \vspace{0.5cm}
         \LARGE
@@ -44,9 +99,13 @@
         \vspace{1.5cm}
             
         \textbf{Matthew Lakin}
+        \\F222199
             
         \vfill
-            
+        
+        Computer Science and Mathematics\\
+        24COC255\\
+        \vspace{0.5cm}
         Project Supervisor: Hossein Nevisi
             
         \Large
@@ -54,6 +113,9 @@
 
         \vspace{0.8cm}
 
+        \LARGE
+        Department of Computer Science\\
+        \vspace{0.3cm}
         \includegraphics[width=0.4\textwidth]{Loughborough-University-Lboro-Logo.png}
 
         \vspace{2cm}
@@ -69,7 +131,14 @@
 \newpage
 
 \chapter{Abstract}
-[WILL WRITE AT END OF PROJECT]
+%Purpose
+With the recent pandemic of COVID-19, the world has become more aware of the need for data visualisation. The ability to see the spread of a virus and how it affects different countries is important for understanding the virus and how to contain it.\\
+%Methods
+This project aims to create a tool which can visualise epidemic and pandemic data in a way that is easy to understand. The tool will be able to show the number of cases and deaths per week for each country. The tool will also be able to show a timeline of the pandemic and give the user the ability to compare how different countries are affected.\\
+%Findings
+The application discussed in this report is a web application which uses D3.js to render the data. The data is in a JSON format and is sourced from the European Centre for Disease Prevention and Control (ECDC). However, the data encoded into a more general format to allow for the application to be used for any data.\\
+%Implications
+The application is able to be used analyse the data and compare how different countries are affected over a time period.
 
 \newpage
 
@@ -394,7 +463,7 @@ I would also like to compare number of cases to other statistics I have availabl
 \newpage
 \chapter{Design Review}
 \section{Wireframing}
-I need to work within the constraints of node.js and D3.js for my designs. Below is a wireframe of the dashboard I plan on creating.\\
+I need to work within the constraints of node.js and D3.js for my designs. Below is a wireframe of the dashboard I plan on creating.
 \begin{center}
     \begin{figure}[h]
         \centering
@@ -425,12 +494,35 @@ When clicking on a country, the canvas will zoom onto the country, giving more s
 \end{center}
 A perk of using SVG to render the map is that when zooming, no resolution is lost. This is because SVG is a vector format, meaning that the image is made up of lines and shapes rather than pixels. This means that the image can be scaled up and down without losing quality.
 \section{D3.js}
-D3.js is a JavaScript library for producing dynamic, interactive data visualisations in web browsers. It makes use of the widely supported SVG format to render graphics. D3.js is a powerful tool for creating visualisations and is widely used in industry.
+D3.js is a JavaScript library for producing dynamic, interactive data visualisations in web browsers. It makes use of the widely supported SVG format to render graphics. D3.js is a powerful tool for creating visualisations and is widely used in industry.\\
 
-D3.js is a good choice for this project as it natively supports GeoJSON data which is the format I will be using for the map. \cite{geojsonvectormaps}
+D3.js is a good choice for this project as it natively supports GeoJSON data which is the format I will be using for the map. The polygon data is open source. \cite{geojsonvectormaps}\\
 
-This is exclusively used on a web browser, so I will be using node.js to serve the data to the front end.
-\newpage
+This is exclusively used on a web browser, so I will be using node.js to serve the data to the front end.\\
+
+D3.js also has many built-in functions for creating different types of graphs and charts and interacting with them. As an example, D3.js has a built-in function for calculuting the bounding box of a country polygon. I will be using this function to calculate where to zoom in on the map. Here's a JavaScript snippet of how I will be using this function:
+
+\begin{lstlisting}[language=JavaScript]
+// Creates a 2d array of the bounding box of the country
+const bounds = path.bounds(d);
+const dx = bounds[1][0] - bounds[0][0];
+const dy = bounds[1][1] - bounds[0][1];
+const x = (bounds[0][0] + bounds[1][0]) / 2;
+const y = (bounds[0][1] + bounds[1][1]) / 2;
+
+// Calculate the scale of the zoom
+const scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height)));
+const translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+// Smoothly transition to the new zoom level
+svg.transition()
+    .duration(750)
+    .call(
+        zoom.transform,
+        d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
+    );
+\end{lstlisting}
+
 The GeoJSON data has much more information than the COVID-19 data. It includes geometry of the country, information regarding the countries economy, sovereign status, GDP, all in multiple languages. I will be cleaning the data to only include relevant information for this project: country name in English, country code (to link the data with the Covid-19 JSON file) and geometry information. 
 
 \section{Chloropleth Maps}
@@ -466,6 +558,56 @@ I used the express.js framework to create a simple server with a router to serve
         \label{fig:nodejs_structure}
     \end{figure}
 \end{center}
+
+\section{Asynchronous Data Fetching}
+When dealing with data in JavaScript, and web programming as a whole, you must deal with asynchronous data fetching. This is because the data is not available immediately and the program must wait for the data to be fetched before it can be used. In my project, I used the fetch API to fetch the data. The word "server" in this context is a bit misleading, as the data is not being served from a server, but rather a local file. In node.js, the lines between server and client are blurred, as the server is also the client.\\
+
+The fetch API is a promise-based API which returns a promise object. This means that the data is not available immediately and the program must wait for the data to be fetched. If the promise is resolved, it will contain the okay response of "200", and the data requested. If the promise is rejected, for example if the file is not found, it will contain the error message with an error code.\\ 
+
+Because of the chance of the promise being rejected, I used error validation and a catch statement to handle the error. This is a good practice when dealing with asynchronous data fetching, as it allows for better error handling and debugging. Here is an example of how I used the fetch API to fetch the data:
+\begin{center}
+    \begin{lstlisting}[language=JavaScript]
+    fetch('https://api.example.com/data')
+    .then(response => {
+        if (!response.ok) throw new
+                Error('Network response was not ok'); // #404
+        return response.json();
+    })
+    .then(data => {
+        console.log('Data received:', data); // #200
+        // Process the data here
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+    });
+    \end{lstlisting}
+\end{center}
+
+On the next page is a sequence diagram of the data fetching process. The diagram shows the flow of data from the server to the client and how the data is fetched asynchronously.\\
+
+\newpage
+\begin{center}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{Images/sequence_diagram.drawio.png}
+        \caption{UML Sequence Diagram for Asynchronous Data Fetching}
+        \label{fig:sequence_diagram}
+    \end{figure}
+\end{center}
+\newpage
+
+\section{User Interface and Experience}
+Below is my dashboard created using d3.js and HTML.
+\begin{center}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.95\textwidth]{Images/dashboard.png}
+        \caption{Dashboard}
+        \label{fig:dashboard}
+    \end{figure}
+\end{center}
+
+\newpage
 \section{Cleaning the Data}
 Before I start working on the front end, I need to clean the data. The data from the ECDC is in a JSON format, but it is not in a format that is easy to work with. I need to combine the cases and deaths into one object and add a date field. This will make it easier to work with the data in the front end.
 
@@ -821,7 +963,95 @@ For the data in my application, I am using the file "interface.js" to load the d
 
 This is my first time ever dealing with async functions and promises.
 
-\chapter{Results and Analysis}
+\chapter{User Analysis}
+For this section, I conducted user testing on my application. I lead the testers through an activity where they had to use the application and extract information from it. I then asked them what they thought of the application and if they had any suggestions for improvement.
+\section{User Testing}
+The first set of questions was in regards to the UI and UX of the application and how easy it was to use. These were the questions asked:\\ \\
+\textbf{Question 1: }By clicking the country, select Egypt\\
+\textbf{Question 2: }Using the zoom button, zoom into Egypt.\\
+
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=1]
+        \pie[square, text=pin, color={green!40, red!30, red!40}]{100/Yes}
+    \end{tikzpicture}
+    \captionof{figure}{Question 1 Results}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=1]
+        \pie[square, text=pin, color={green!40, red!30, red!40}]{62.5/Yes, 37.5/No}
+    \end{tikzpicture}
+    \captionof{figure}{Question 2 Results}
+\end{minipage}
+\newline
+\\There was no issue with the first question, all users were able to select a country and see the corresponding data. However, the second question caused some issues. The main issue with the zoom feature was that the button to activate the zoom mode was not clear. The users were confused about how to activate the zoom mode and some of them did not know that they could click on the map to zoom in.
+
+\newpage
+The next set of questions was in regards to getting data from the application. I had 4 questions in this section. \\ \\
+\textbf{Question 3: }How many cases of Covid-19 was recorded in the 20th week of 2020 in Egypt? \\
+\textbf{Question 4: }Using the comparison graph, did Egypt or South Africa have more deaths on the 45th week of 2020?\\
+\textbf{Question 5: }On what week did Sweden have it's peak case count?\\
+\textbf{Question 6: }Compare the cases per GDP between United Kingdom and Germany on the week 2021-48, which country had more cases per GDP? \\ \\
+The results of the questions are below:\\
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=1.1]
+        \pie[square, text=pin, color={green!40, red!30, red!40}]{87.5/2829 (Correct), 12.5/2989 (Incorrect)}
+    \end{tikzpicture}
+    \captionof{figure}{Question 3 Results}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.35\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=0.7]
+        \pie[square, text=pin, color={green!40, red!30, red!40}]{100/South Africa (Correct)}
+    \end{tikzpicture}
+    \captionof{figure}{Question 4 Results}
+\end{minipage}
+\vspace{1cm}
+\begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=1.1]
+        \pie[square, text=pin, color={green!40, red!30, red!40}, rotate=180]{50/2022-04 (Correct), 37.5/2022-03 (Incorrect), 12.5/2021-14 (Incorrect)}
+    \end{tikzpicture}
+    \captionof{figure}{Question 5 Results}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.35\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=0.7]
+        \pie[square, text=pin, color={green!40, red!30, red!40}]{100/Germany (Correct)}
+    \end{tikzpicture}
+    \captionof{figure}{Question 6 Results}
+\end{minipage}
+
+\newpage
+Overall, I am happy with the results of the user testing. My worst answered question was question 5, where only 50\% of users got the question correct. This was somewhat expected as the question required the uesr to use the program in a way that was not initially intended. The question was asking the user to find the peak case count of a country, which is not a feature of the program. The users were able to find the data, but they were not able to find the peak case count. This is something I will be looking to improve in the future.
+
+\section{User Feedback}
+The users were overall happy with the application. They liked the design and the way the data was presented. The users also liked the interactivity of the map and how they could zoom in on countries.\\
+
+However, I recieved many suggestions for improvement, some of which I will be implementing. The main suggestions were:
+\begin{itemize}
+    \item The zoom button was not clear and the users did not know how to activate it.
+    \begin{itemize}
+        \item The button was hard to identify and it was not clear what it did. I will be changing the button to a more recognisable icon and adding a tooltip to explain what it does.
+        \item The current behavior of the button shows a globe icon when the map is not in zoom mode, and a zoom icon when the map is in zoom mode. This is not clear and I be inverting the icons.
+    \end{itemize}
+    \item The search bar was not clear and the users did not know how to use it.
+    \begin{itemize}
+        \item The behaviour of the search bar and the comparison search bar were slightly different and one required the enter key to be pressed. I will be changing the search bar to behave the same as the comparison search bar.
+        \item The search icon was not a button like the users expected. I will be changing the search icon to a button and adding a tooltip to explain what it does.
+    \end{itemize}
+    \item The users wanted the graphs to be zoomable on a separate window.
+    \item Functionality to right click a country to add country to comparison graph.
+    \item Searching for a country did not highlight the country on the map.
+\end{itemize}
+
 \newpage
 
 \chapter{Conclusion}
@@ -835,7 +1065,7 @@ This is my first time ever dealing with async functions and promises.
 \newpage
 
 \chapter{Appendix}
-\section{restrucure-json.py}
+\section{restructure-json.py}
 \begin{lstlisting}[language=Python]
 import json
 from collections import defaultdict
