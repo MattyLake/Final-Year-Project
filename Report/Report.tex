@@ -596,17 +596,6 @@ On the next page is a sequence diagram of the data fetching process. The diagram
 \end{center}
 \newpage
 
-\section{User Interface and Experience}
-Below is my dashboard created using d3.js and HTML.
-\begin{center}
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.95\textwidth]{Images/dashboard.png}
-        \caption{Dashboard}
-        \label{fig:dashboard}
-    \end{figure}
-\end{center}
-
 \newpage
 \section{Cleaning the Data}
 Before I start working on the front end, I need to clean the data. The data from the ECDC is in a JSON format, but it is not in a format that is easy to work with. I need to combine the cases and deaths into one object and add a date field. This will make it easier to work with the data in the front end.
@@ -648,293 +637,293 @@ There are multiple countries that are in dispute due to political or territorial
 
 Another consideration are countries which aren't included in the $\mathbf{ISO}$ $\mathbf{3166-1}$ $\mathbf{Alpha-3}$ country code set which is what both the ECDC and GeoJSON file use. An example is Somaliland which is a self-declared state but is not recognised by the United Nations or the ISO-3166-1 country code, but the dataset does contain data so we will extend the country code set to include this.
 
-There are multiple more examples like this, here is a list of countries I will be including in my dataset:
-\newpage
-\begin{center}
-    \begin{minipage}{0.46\textwidth}
-        \begin{tabular}{|p{10.5em}|p{6em}|}
-            \hline
-            Country or Area Name & ISO Code\\
-            \hline
-            Afghanistan & AFG\\
-            Africa (total) & N/A\\
-            Albania & ALB\\
-            Algeria & DZA\\
-            America (total) & N/A\\
-            American Samoa & ASM\\
-            Andorra & AND\\
-            Angola & AGO\\
-            Anguilla & AIA\\
-            Antigua And Barbuda & ATG\\
-            Argentina & ARG\\
-            Armenia & ARM\\
-            Aruba & ABW\\
-            Asia (total) & N/A\\
-            Australia & AUS\\
-            Austria & AUT\\
-            Azerbaijan & AZE\\
-            Bahamas & BHS\\
-            Bahrain & BHR\\
-            Bangladesh & BGD\\
-            Barbados & BRB\\
-            Belarus & BLR\\
-            Belgium & BEL\\
-            Belize & BLZ\\
-            Benin & BEN\\
-            Bermuda & BMU\\
-            Bhutan & BTN\\
-            Bolivia & BOL\\
-            Bonaire, Saint Eustatius And Saba & BES\\
-            Bosnia And Herzegovina & BIH\\
-            Botswana & BWA\\
-            Brazil & BRA\\
-            British Virgin Islands & VGB\\
-            Brunei Darussalam & BRN\\
-            Bulgaria & BGR\\
-            Burkina Faso & BFA\\
-            Burundi & BDI\\
-            Cambodia & KHM\\
-            Cameroon & CMR\\
-            Canada & CAN\\
-            Cape Verde & CPV\\
-            Cayman Islands & CYM\\
-            Central African Republic & CAF\\
-            Chad & TCD\\
-            \hline
-        \end{tabular}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.46\textwidth}
-        \begin{tabular}{|p{10.5em}|p{6em}|}
-            \hline
-            Country or Area Name & ISO Code\\
-            \hline
-            Chile & CHL\\
-            China & CHN\\
-            Colombia & COL\\
-            Comoros & COM\\
-            Congo & COG\\
-            Cook Islands & COK\\
-            Costa Rica & CRI\\
-            Cote Divoire & CIV\\
-            Croatia & HRV\\
-            Cuba & CUB\\
-            Curaçao & CUW\\
-            Czechia & CZE\\
-            Democratic Republic Of The Congo & COD\\
-            Denmark & DNK\\
-            Djibouti & DJI\\
-            Dominica & DMA\\
-            Dominican Republic & DOM\\
-            Ecuador & ECU\\
-            Egypt & EGY\\
-            El Salvador & SLV\\
-            Equatorial Guinea & GNQ\\
-            Eritrea & ERI\\
-            Estonia & EST\\
-            Eswatini & SWZ\\
-            Ethiopia & ETH\\
-            EU/EEA (total) & N/A\\
-            Europe (total) & N/A\\
-            Falkland Islands (Malvinas) & FLK\\
-            Faroe Islands & FRO\\
-            Fiji & FJI\\
-            Finland & FIN\\
-            France & FRA\\
-            French Polynesia & PYF\\
-            Gabon & GAB\\
-            Gambia & GMB\\
-            Georgia & GEO\\
-            Germany & DEU\\
-            Ghana & GHA\\
-            Gibraltar & GIB\\
-            Greece & GRC\\
-            Greenland & GRL\\
-            Grenada & GRD\\
-            Guam & GUM\\
-            Guatemala & GTM\\
-            Guernsey & GGY\\
-            \hline
-        \end{tabular}
-    \end{minipage}
+% There are multiple more examples like this, here is a list of countries I will be including in my dataset:
+% \newpage
+% \begin{center}
+%     \begin{minipage}{0.46\textwidth}
+%         \begin{tabular}{|p{10.5em}|p{6em}|}
+%             \hline
+%             Country or Area Name & ISO Code\\
+%             \hline
+%             Afghanistan & AFG\\
+%             Africa (total) & N/A\\
+%             Albania & ALB\\
+%             Algeria & DZA\\
+%             America (total) & N/A\\
+%             American Samoa & ASM\\
+%             Andorra & AND\\
+%             Angola & AGO\\
+%             Anguilla & AIA\\
+%             Antigua And Barbuda & ATG\\
+%             Argentina & ARG\\
+%             Armenia & ARM\\
+%             Aruba & ABW\\
+%             Asia (total) & N/A\\
+%             Australia & AUS\\
+%             Austria & AUT\\
+%             Azerbaijan & AZE\\
+%             Bahamas & BHS\\
+%             Bahrain & BHR\\
+%             Bangladesh & BGD\\
+%             Barbados & BRB\\
+%             Belarus & BLR\\
+%             Belgium & BEL\\
+%             Belize & BLZ\\
+%             Benin & BEN\\
+%             Bermuda & BMU\\
+%             Bhutan & BTN\\
+%             Bolivia & BOL\\
+%             Bonaire, Saint Eustatius And Saba & BES\\
+%             Bosnia And Herzegovina & BIH\\
+%             Botswana & BWA\\
+%             Brazil & BRA\\
+%             British Virgin Islands & VGB\\
+%             Brunei Darussalam & BRN\\
+%             Bulgaria & BGR\\
+%             Burkina Faso & BFA\\
+%             Burundi & BDI\\
+%             Cambodia & KHM\\
+%             Cameroon & CMR\\
+%             Canada & CAN\\
+%             Cape Verde & CPV\\
+%             Cayman Islands & CYM\\
+%             Central African Republic & CAF\\
+%             Chad & TCD\\
+%             \hline
+%         \end{tabular}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}{0.46\textwidth}
+%         \begin{tabular}{|p{10.5em}|p{6em}|}
+%             \hline
+%             Country or Area Name & ISO Code\\
+%             \hline
+%             Chile & CHL\\
+%             China & CHN\\
+%             Colombia & COL\\
+%             Comoros & COM\\
+%             Congo & COG\\
+%             Cook Islands & COK\\
+%             Costa Rica & CRI\\
+%             Cote Divoire & CIV\\
+%             Croatia & HRV\\
+%             Cuba & CUB\\
+%             Curaçao & CUW\\
+%             Czechia & CZE\\
+%             Democratic Republic Of The Congo & COD\\
+%             Denmark & DNK\\
+%             Djibouti & DJI\\
+%             Dominica & DMA\\
+%             Dominican Republic & DOM\\
+%             Ecuador & ECU\\
+%             Egypt & EGY\\
+%             El Salvador & SLV\\
+%             Equatorial Guinea & GNQ\\
+%             Eritrea & ERI\\
+%             Estonia & EST\\
+%             Eswatini & SWZ\\
+%             Ethiopia & ETH\\
+%             EU/EEA (total) & N/A\\
+%             Europe (total) & N/A\\
+%             Falkland Islands (Malvinas) & FLK\\
+%             Faroe Islands & FRO\\
+%             Fiji & FJI\\
+%             Finland & FIN\\
+%             France & FRA\\
+%             French Polynesia & PYF\\
+%             Gabon & GAB\\
+%             Gambia & GMB\\
+%             Georgia & GEO\\
+%             Germany & DEU\\
+%             Ghana & GHA\\
+%             Gibraltar & GIB\\
+%             Greece & GRC\\
+%             Greenland & GRL\\
+%             Grenada & GRD\\
+%             Guam & GUM\\
+%             Guatemala & GTM\\
+%             Guernsey & GGY\\
+%             \hline
+%         \end{tabular}
+%     \end{minipage}
 
-    \newpage
-    \begin{minipage}{0.46\textwidth}
-        \begin{tabular}{|p{10.5em}|p{6em}|}
-            \hline
-            Country or Area Name & ISO Code\\
-            \hline
-            Guinea & GIN\\
-            Guinea Bissau & GNB\\
-            Guyana & GUY\\
-            Haiti & HTI\\
-            Holy See & VAT\\
-            Honduras & HND\\
-            Hungary & HUN\\
-            Iceland & ISL\\
-            India & IND\\
-            Indonesia & IDN\\
-            Iran & IRN\\
-            Iraq & IRQ\\
-            Ireland & IRL\\
-            Isle Of Man & IMN\\
-            Israel & ISR\\
-            Italy & ITA\\
-            Jamaica & JAM\\
-            Japan & JPN\\
-            Jersey & JEY\\
-            Jordan & JOR\\
-            Kazakhstan & KAZ\\
-            Kenya & KEN\\
-            Kiribati & KIR\\
-            Kosovo & XKX\\
-            Kuwait & KWT\\
-            Kyrgyzstan & KGZ\\
-            Laos & LAO\\
-            Latvia & LVA\\
-            Lebanon & LBN\\
-            Lesotho & LSO\\
-            Liberia & LBR\\
-            Libya & LBY\\
-            Liechtenstein & LIE\\
-            Lithuania & LTU\\
-            Luxembourg & LUX\\
-            Madagascar & MDG\\
-            Malawi & MWI\\
-            Malaysia & MYS\\
-            Maldives & MDV\\
-            Mali & MLI\\
-            Malta & MLT\\
-            Marshall Islands & MHL\\
-            Mauritania & MRT\\
-            Mauritius & MUS\\
-            Mexico & MEX\\
-            Micronesia (Federated States Of) & FSM\\
-            \hline
-        \end{tabular}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.46\textwidth}
-        \begin{tabular}{|p{10.5em}|p{6em}|}
-            \hline
-            Country or Area Name & ISO Code\\
-            \hline
-            Moldova & MDA\\
-            Monaco & MCO\\
-            Mongolia & MNG\\
-            Montenegro & MNE\\
-            Montserrat & MSR\\
-            Morocco & MAR\\
-            Mozambique & MOZ\\
-            Myanmar & MMR\\
-            Namibia & NAM\\
-            Nauru & NRU\\
-            Nepal & NPL\\
-            Netherlands & NLD\\
-            New Caledonia & NCL\\
-            New Zealand & NZL\\
-            Nicaragua & NIC\\
-            Niger & NER\\
-            Nigeria & NGA\\
-            North Macedonia & MKD\\
-            Northern Mariana Islands & MNP\\
-            Norway & NOR\\
-            Oceania (total) & N/A\\
-            Oman & OMN\\
-            Pakistan & PAK\\
-            Palau & PLW\\
-            Palestine & PSE\\
-            Panama & PAN\\
-            Papua New Guinea & PNG\\
-            Paraguay & PRY\\
-            Peru & PER\\
-            Philippines & PHL\\
-            Poland & POL\\
-            Portugal & PRT\\
-            Puerto Rico & PRI\\
-            Qatar & QAT\\
-            Romania & ROU\\
-            Republic of Türkiye & TUR\\
-            Russia & RUS\\
-            Rwanda & RWA\\
-            Saint Kitts And Nevis & KNA\\
-            Saint Lucia & LCA\\
-            Saint Vincent And The Grenadines & VCT\\
-            Samoa & WSM\\
-            San Marino & SMR\\
-            Sao Tome And Principe & STP\\
-            Saudi Arabia & SAU\\
-            \hline
-        \end{tabular}
-    \end{minipage}
+%     \newpage
+%     \begin{minipage}{0.46\textwidth}
+%         \begin{tabular}{|p{10.5em}|p{6em}|}
+%             \hline
+%             Country or Area Name & ISO Code\\
+%             \hline
+%             Guinea & GIN\\
+%             Guinea Bissau & GNB\\
+%             Guyana & GUY\\
+%             Haiti & HTI\\
+%             Holy See & VAT\\
+%             Honduras & HND\\
+%             Hungary & HUN\\
+%             Iceland & ISL\\
+%             India & IND\\
+%             Indonesia & IDN\\
+%             Iran & IRN\\
+%             Iraq & IRQ\\
+%             Ireland & IRL\\
+%             Isle Of Man & IMN\\
+%             Israel & ISR\\
+%             Italy & ITA\\
+%             Jamaica & JAM\\
+%             Japan & JPN\\
+%             Jersey & JEY\\
+%             Jordan & JOR\\
+%             Kazakhstan & KAZ\\
+%             Kenya & KEN\\
+%             Kiribati & KIR\\
+%             Kosovo & XKX\\
+%             Kuwait & KWT\\
+%             Kyrgyzstan & KGZ\\
+%             Laos & LAO\\
+%             Latvia & LVA\\
+%             Lebanon & LBN\\
+%             Lesotho & LSO\\
+%             Liberia & LBR\\
+%             Libya & LBY\\
+%             Liechtenstein & LIE\\
+%             Lithuania & LTU\\
+%             Luxembourg & LUX\\
+%             Madagascar & MDG\\
+%             Malawi & MWI\\
+%             Malaysia & MYS\\
+%             Maldives & MDV\\
+%             Mali & MLI\\
+%             Malta & MLT\\
+%             Marshall Islands & MHL\\
+%             Mauritania & MRT\\
+%             Mauritius & MUS\\
+%             Mexico & MEX\\
+%             Micronesia (Federated States Of) & FSM\\
+%             \hline
+%         \end{tabular}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}{0.46\textwidth}
+%         \begin{tabular}{|p{10.5em}|p{6em}|}
+%             \hline
+%             Country or Area Name & ISO Code\\
+%             \hline
+%             Moldova & MDA\\
+%             Monaco & MCO\\
+%             Mongolia & MNG\\
+%             Montenegro & MNE\\
+%             Montserrat & MSR\\
+%             Morocco & MAR\\
+%             Mozambique & MOZ\\
+%             Myanmar & MMR\\
+%             Namibia & NAM\\
+%             Nauru & NRU\\
+%             Nepal & NPL\\
+%             Netherlands & NLD\\
+%             New Caledonia & NCL\\
+%             New Zealand & NZL\\
+%             Nicaragua & NIC\\
+%             Niger & NER\\
+%             Nigeria & NGA\\
+%             North Macedonia & MKD\\
+%             Northern Mariana Islands & MNP\\
+%             Norway & NOR\\
+%             Oceania (total) & N/A\\
+%             Oman & OMN\\
+%             Pakistan & PAK\\
+%             Palau & PLW\\
+%             Palestine & PSE\\
+%             Panama & PAN\\
+%             Papua New Guinea & PNG\\
+%             Paraguay & PRY\\
+%             Peru & PER\\
+%             Philippines & PHL\\
+%             Poland & POL\\
+%             Portugal & PRT\\
+%             Puerto Rico & PRI\\
+%             Qatar & QAT\\
+%             Romania & ROU\\
+%             Republic of Türkiye & TUR\\
+%             Russia & RUS\\
+%             Rwanda & RWA\\
+%             Saint Kitts And Nevis & KNA\\
+%             Saint Lucia & LCA\\
+%             Saint Vincent And The Grenadines & VCT\\
+%             Samoa & WSM\\
+%             San Marino & SMR\\
+%             Sao Tome And Principe & STP\\
+%             Saudi Arabia & SAU\\
+%             \hline
+%         \end{tabular}
+%     \end{minipage}
 
-    \newpage
-    \begin{minipage}{0.46\textwidth}
-        \begin{tabular}{|p{10.5em}|p{6em}|}
-            \hline
-            Country or Area Name & ISO Code\\
-            \hline
-            Senegal & SEN\\
-            Serbia & SRB\\
-            Seychelles & SYC\\
-            Sierra Leone & SLE\\
-            Singapore & SGP\\
-            Sint Maarten & SXM\\
-            Slovakia & SVK\\
-            Slovenia & SVN\\
-            Solomon Islands & SLB\\
-            Somalia & SOM\\
-            South Africa & ZAF\\
-            South Korea & KOR\\
-            South Sudan & SSD\\
-            Spain & ESP\\
-            Sri Lanka & LKA\\
-            Sudan & SDN\\
-            Suriname & SUR\\
-            Sweden & SWE\\
-            Switzerland & CHE\\
-            Syria & SYR\\
-            Taiwan & TWN\\
-            Tajikistan & TJK\\
-            Thailand & THA\\
-            Timor Leste & TLS\\
-            Togo & TGO\\
-            Tonga & TON\\
-            Trinidad And Tobago & TTO\\
-            Tunisia & TUN\\
-            Turks And Caicos Islands & TCA\\
-            Tuvalu & TUV\\
-            Uganda & UGA\\
-            Ukraine & UKR\\
-            United Arab Emirates & ARE\\
-            United Kingdom & GBR\\
-            United Republic Of Tanzania & TZA\\
-            United States Of America & USA\\
-            United States Virgin Islands & VIR\\
-            Uruguay & URY\\
-            Uzbekistan & UZB\\
-            \hline
-        \end{tabular}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.46\textwidth}
-        \begin{tabular}{|p{10.5em}|p{6em}|}
-            \hline
-            Country or Area Name & ISO Code\\
-            \hline
-            Vanuatu & VUT\\
-            Venezuela & VEN\\
-            Vietnam & VNM\\
-            Wallis And Futuna & WLF\\
-            Western Sahara & ESH\\
-            Yemen & YEM\\
-            Zambia & ZMB\\
-            Zimbabwe & ZWE\\
-            Cyprus & CYP\\
-            \hline
-        \end{tabular}
-    \end{minipage}
-\end{center}
+%     \newpage
+%     \begin{minipage}{0.46\textwidth}
+%         \begin{tabular}{|p{10.5em}|p{6em}|}
+%             \hline
+%             Country or Area Name & ISO Code\\
+%             \hline
+%             Senegal & SEN\\
+%             Serbia & SRB\\
+%             Seychelles & SYC\\
+%             Sierra Leone & SLE\\
+%             Singapore & SGP\\
+%             Sint Maarten & SXM\\
+%             Slovakia & SVK\\
+%             Slovenia & SVN\\
+%             Solomon Islands & SLB\\
+%             Somalia & SOM\\
+%             South Africa & ZAF\\
+%             South Korea & KOR\\
+%             South Sudan & SSD\\
+%             Spain & ESP\\
+%             Sri Lanka & LKA\\
+%             Sudan & SDN\\
+%             Suriname & SUR\\
+%             Sweden & SWE\\
+%             Switzerland & CHE\\
+%             Syria & SYR\\
+%             Taiwan & TWN\\
+%             Tajikistan & TJK\\
+%             Thailand & THA\\
+%             Timor Leste & TLS\\
+%             Togo & TGO\\
+%             Tonga & TON\\
+%             Trinidad And Tobago & TTO\\
+%             Tunisia & TUN\\
+%             Turks And Caicos Islands & TCA\\
+%             Tuvalu & TUV\\
+%             Uganda & UGA\\
+%             Ukraine & UKR\\
+%             United Arab Emirates & ARE\\
+%             United Kingdom & GBR\\
+%             United Republic Of Tanzania & TZA\\
+%             United States Of America & USA\\
+%             United States Virgin Islands & VIR\\
+%             Uruguay & URY\\
+%             Uzbekistan & UZB\\
+%             \hline
+%         \end{tabular}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}{0.46\textwidth}
+%         \begin{tabular}{|p{10.5em}|p{6em}|}
+%             \hline
+%             Country or Area Name & ISO Code\\
+%             \hline
+%             Vanuatu & VUT\\
+%             Venezuela & VEN\\
+%             Vietnam & VNM\\
+%             Wallis And Futuna & WLF\\
+%             Western Sahara & ESH\\
+%             Yemen & YEM\\
+%             Zambia & ZMB\\
+%             Zimbabwe & ZWE\\
+%             Cyprus & CYP\\
+%             \hline
+%         \end{tabular}
+%     \end{minipage}
+% \end{center}
 
 \newpage
 
@@ -943,6 +932,18 @@ Initially, I wanted to use UNIX timestamps to store the date, but I have since c
 To combat this, I am storing data in the string form of "YYYY-ww" where YYYY is the year and ww is the week number. This is a consistent format and will work with the HTML slider tag. I will have a function to convert the string to a date object when I need to use it. It is also ISO 8601 compliant, which is a good standard to use.\\
 
 \section{Frontend}
+
+\subsection{User Interface and Experience}
+Below is my dashboard created using d3.js and HTML.
+\begin{center}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.95\textwidth]{Images/dashboard.png}
+        \caption{Dashboard}
+        \label{fig:dashboard}
+    \end{figure}
+\end{center}
+I will go into more detail about the features of the dashboard in the coming sections.
 \subsection{World Map}
 The world map in this project was a success in planning. I used the D3.js library to render the map and it worked well. The map is interactive and allows the user to zoom in on countries.
 
@@ -951,17 +952,30 @@ I was able to take advantage of features in D3.js like transisition and zoom for
 I used the GeoJSON polygon data to render the map. This had many beneficial side effects, like: Choice of projection, the multipolygon feature of GeoJSON, rendering the data in SVG format, and the ability to use D3.js features like transitions and zoom.
 
 \subsection{Info Panel}
-Originally, I planned to use a stacked area chart for this project, but I have since changed my mind. The reason is that the stacked area chart is not a good way to represent the data. The populations of the susceptible and the cases/deaths are very disproportionate so a linear scale would not work. Instead, I will be using a logarithmic scale for the y-axis. This will allow me to show the data in a more meaningful way.
-
-The area chart will be a simple line chart with the x-axis being the date and the y-axis being the size of the populations. The chart will have a legend to show what each line represents. The chart will also have a title and axis labels.
-
-\section{Search Bar}
+The info panel is a div which is activated when a country is clicked. The div contains information about the country and the data. The information is displayed in a table format. The table contains the following information:
+\subsubsection{Country Graph}
+I initially planned to use a stacked area chart for this project, but I have since changed my mind. The reason is that the stacked area chart does not properly represent the data when used with a logarithmic scale. The populations of the susceptible and the cases/deaths are very disproportionate so a linear scale would not work. Instead, I will be using a logarithmic scale for the y-axis and have multiple lines on the same graph. This will allow me to show the data in a more meaningful way.
+\subsubsection{Comparison Graph}
+The comparison graph is a simple line chart with a logarithmic scale. The x-axis is the date and the y-axis is the number of cases/deaths. The country is able to be changed as well as the type of data. The options of data I chose to include are:
+\begin{itemize}
+    \item Cases
+    \item Deaths
+    \item Cases per GDP per capita
+    \item Deaths per GDP per capita
+\end{itemize}
+I intended on having more options, however I was unsure that a line graph would be the best way to represent the data with a binary part like sovereign status.
+\subsection{Search Bar}
 The search bar is a simple input field which is designed to behave the same as just clicking a country. 
+
+\subsection{}
 
 \section{Backend}
 For the data in my application, I am using the file "interface.js" to load the data from the JSON file. This file is an async module which exports a function to load the data. The function can fetch all data or data specfied in the parameters. The function will return a promise which resolves to the data. This is a simple way to load data from a file and is a common pattern in JavaScript.
 
 This is my first time ever dealing with async functions and promises.
+
+\section{Deployment}
+
 
 \chapter{User Analysis}
 For this section, I conducted user testing on my application. I lead the testers through an activity where they had to use the application and extract information from it. I then asked them what they thought of the application and if they had any suggestions for improvement.
@@ -990,7 +1004,7 @@ The first set of questions was in regards to the UI and UX of the application an
 \\There was no issue with the first question, all users were able to select a country and see the corresponding data. However, the second question caused some issues. The main issue with the zoom feature was that the button to activate the zoom mode was not clear. The users were confused about how to activate the zoom mode and some of them did not know that they could click on the map to zoom in.
 
 \newpage
-The next set of questions was in regards to getting data from the application. I had 4 questions in this section. \\ \\
+The next set of questions was in regards to getting data from the application. I had 4 questions in this section: \\ \\
 \textbf{Question 3: }How many cases of Covid-19 was recorded in the 20th week of 2020 in Egypt? \\
 \textbf{Question 4: }Using the comparison graph, did Egypt or South Africa have more deaths on the 45th week of 2020?\\
 \textbf{Question 5: }On what week did Sweden have it's peak case count?\\
@@ -1067,69 +1081,109 @@ However, I recieved many suggestions for improvement, some of which I will be im
 \chapter{Appendix}
 \section{restructure-json.py}
 \begin{lstlisting}[language=Python]
-import json
-from collections import defaultdict
-
-# Load JSON data from file
-with open("data.json", "r", encoding="utf-8") as infile:
-    json_data = json.load(infile)
-
-# Transform data
-result = defaultdict(lambda: {"properties": {},
-                              "data": defaultdict(lambda:
-                                      {"cases": 0,
-                                       "deaths": 0,
-                                       "cumulative_cases": 0,
-                                       "cumulative_deaths": 0})})
-
-for entry in json_data:
-    try:
-        country = entry["country"]
+    import json
+    from collections import defaultdict
+    
+    #####################################################
+    #ENTER UNCLEANED JSON FILE, e.g. "data.json"
+    oldJSONFile = "data.json"
+    #####################################################
+    
+    # Load JSON data from file
+    with open(oldJSONFile, "r", encoding="utf-8") as infile:
+        json_data = json.load(infile)
+    
+    # Data structure to hold per-country data
+    countries = defaultdict(lambda: {
+        "properties": {},
+        "data": defaultdict(lambda: {
+            "cases": 0,
+            "deaths": 0,
+            "cumulative_cases": 0,
+            "cumulative_deaths": 0,
+            "rate_14_day_cases": 0.0,
+            "rate_14_day_deaths": 0.0
+        })
+    })
+    
+    # Initialize global totals
+    world_totals = defaultdict(lambda: {
+        "cases": 0,
+        "deaths": 0,
+        "cumulative_cases": 0,
+        "cumulative_deaths": 0
+    })
+    world_population = 0  # We will sum all populations
+    
+    for entry in json_data:
+        country = entry.get("country", "Unknown")
+        country_code = entry.get("country_code", "N/A")
         
-        # Populate properties
-        if not result[country]["properties"]:
-            result[country]["properties"] = {
-                "country": entry.get("country", "Unknown"),
-                "country_code": entry.get("country_code", "N/A"),
+        # Populate country properties once
+        if not countries[country_code]["properties"]:
+            countries[country_code]["properties"] = {
+                "country": country,
+                "country_code": country_code,
                 "continent": entry.get("continent", "Unknown"),
                 "population": entry.get("population", 0),
                 "source": entry.get("source", "Unknown")
             }
-
-        # Organize data by year_week
+            world_population += entry.get("population", 0)  # Sum global population
+    
+        # Use the original year_week format (YYYY-WW)
         year_week = entry.get("year_week", "Unknown")
+    
+        # Extract indicator and values
+        indicator = entry.get("indicator", "").lower()
         weekly_count = entry.get("weekly_count", 0)
         cumulative_count = entry.get("cumulative_count", 0)
-        indicator = entry.get("indicator", "").lower()
-
+        rate_14_day = entry.get("rate_14_day", 0.0)
+    
+        ################################################################
+        # AMMEND THIS AREA TO FIX TO YOUR OWN JSON FILE
+        
+        # Store values based on indicator type
         if indicator == "cases":
-            result[country]["data"][year_week]["cases"]
-                        = weekly_count
-            result[country]["data"][year_week]["cumulative_cases"]
-                        = cumulative_count
+            countries[country_code]["data"][year_week]["cases"] = weekly_count
+            countries[country_code]["data"][year_week]["cumulative_cases"] = cumulative_count
+            countries[country_code]["data"][year_week]["rate_14_day_cases"] = rate_14_day
+    
+            # Add to world totals
+            world_totals[year_week]["cases"] += weekly_count
+            world_totals[year_week]["cumulative_cases"] += cumulative_count
+    
         elif indicator == "deaths":
-            result[country]["data"][year_week]["deaths"]
-                        = weekly_count
-            result[country]["data"][year_week]["cumulative_deaths"]
-                        = cumulative_count
-    except KeyError as e:
-        print(f"Missing key {e} in entry: {entry}")
-
-# Convert defaultdict to normal dict
-final_result = {country: {"properties": data["properties"],
-        "data": dict(data["data"])} for country, data in result.items()}
-
-# Write output to a new JSON file
-with open("restructured_data.json", "w", encoding="utf-8") as outfile:
-    json.dump(final_result, outfile, indent=4)
-
-print("Data successfully transformed and saved to 'new_data.json'")
+            countries[country_code]["data"][year_week]["deaths"] = weekly_count
+            countries[country_code]["data"][year_week]["cumulative_deaths"] = cumulative_count
+            countries[country_code]["data"][year_week]["rate_14_day_deaths"] = rate_14_day
+    
+            # Add to world totals
+            world_totals[year_week]["deaths"] += weekly_count
+            world_totals[year_week]["cumulative_deaths"] += cumulative_count
+    
+    
+        ################################################################
+            
+    # Add global totals as a "World" entry
+    countries["WORLD"] = {
+        "properties": {
+            "country": "World",
+            "country_code": "WORLD",
+            "continent": "Earth",
+            "population": world_population,
+            "source": "Aggregated Data"
+        },
+        "data": world_totals
+    }
+    
+    # Convert defaultdict to normal dict for JSON output
+    final_result = {country_code: {"properties": data["properties"], "data": dict(data["data"])} 
+                    for country_code, data in countries.items()}
+    
+    # Write output to a new JSON file
+    with open("pandemicData.json", "w", encoding="utf-8") as outfile:
+        json.dump(final_result, outfile, indent=4)
+    
+    print("Data successfully transformed and saved to 'pandemicData.json'")
 \end{lstlisting}
-
-
-\newpage
-
-
-
-
 \end{document}
