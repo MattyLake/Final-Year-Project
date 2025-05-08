@@ -997,9 +997,16 @@ The comparison graph is a simple line chart with a logarithmic scale. The x-axis
 \end{itemize}
 I intended on having more options, however I was unsure that a line graph would be the best way to represent the data with a binary part like sovereign status.
 \subsection{Search Bar}
-The search bar is a simple input field which is designed to behave the same as just clicking a country. 
+The search bar is a simple input field which is designed to behave the same as just clicking a country. The user can type in the name of the country, and the field will show a list of countries which match the input. The user can then click on the country and the map will zoom in on the country. This is a good way to allow the user to find a country quickly without having to scroll through the map.
 
-\subsection{}
+\subsection{Zoom}
+I used a "zoom mode" in my application. It has functionality when a country is selected and sets the bounding box of the country to the view. This code also allows the user to freely zoom in and out of the map, and pan around the map. This is a d3.js feature which is used extensively.
+
+\subsection{Live Playback}
+The application has a live playback feature which allows the user to see how the data progresses over time. The user can click on the play button and the application will automatically update the data every week. When the button is clicked, it becomes a toggle button which allows the user to pause the playback. The playback automatically stops when the end of the data is reached.
+
+\subsection{Week Slider}
+The slider is a d3.js slider which allows the user to select a week. It required some logic to cast the position on the slider to a week. The slider is a good way to to allow the user to select a week without having to type in the date.
 
 \section{Backend}
 For the data in my application, I am using the file "interface.js" to load the data from the JSON file. This file is an async module which exports a function to load the data. The function can fetch all data or data specfied in the parameters. The function will return a promise which resolves to the data. This is a simple way to load data from a file and is a common pattern in JavaScript.
@@ -1032,7 +1039,6 @@ In my Dockerfile, I used the node.js runtime as the base image, and then copied 
     \caption{Dockerfile for the Application}
     \label{fig:dockerfile}
 \end{figure}
-
 \begin{center}
     \begin{figure}[h]
         \centering
@@ -1043,7 +1049,9 @@ In my Dockerfile, I used the node.js runtime as the base image, and then copied 
 \end{center}
 
 \chapter{User Analysis}
-For this section, I conducted user testing on my application. I lead the testers through an activity where they had to use the application and extract information from it. I then asked them what they thought of the application and if they had any suggestions for improvement.
+For this section, I conducted user testing on my application. I lead the testers through an activity where they had to use the application and extract information from it. I then asked them what they thought of the application and if they had any suggestions for improvement.\\
+
+I followed the LEON ethics guidelines for this project, producing an informed consent form, participant information sheet, risk assessment and an approved questionnaire. I also made sure to anonymise the data and not use any personal information.
 \section{User Testing}
 The first set of questions was in regards to the UI and UX of the application and how easy it was to use. These were the questions asked:\\ \\
 \textbf{Question 1: }By clicking the country, select Egypt\\
@@ -1066,9 +1074,8 @@ The first set of questions was in regards to the UI and UX of the application an
     \captionof{figure}{Question 2 Results}
 \end{minipage}
 \newline
-\\There was no issue with the first question, all users were able to select a country and see the corresponding data. However, the second question caused some issues. The main issue with the zoom feature was that the button to activate the zoom mode was not clear. The users were confused about how to activate the zoom mode and some of them did not know that they could click on the map to zoom in.
+\\There was no issue with the first question, all users were able to select a country and see the corresponding data. However, the second question caused some issues. The main issue with the zoom feature was that the button to activate the zoom mode was not clear. The users were confused about how to activate the zoom mode and some of them did not know that they could click on the map to zoom in.\\
 
-\newpage
 The next set of questions was in regards to getting data from the application. I had 4 questions in this section: \\ \\
 \textbf{Question 3: }How many cases of Covid-19 was recorded in the 20th week of 2020 in Egypt? \\
 \textbf{Question 4: }Using the comparison graph, did Egypt or South Africa have more deaths on the 45th week of 2020?\\
@@ -1119,7 +1126,7 @@ However, I recieved many suggestions for improvement, some of which I will be im
     \item The zoom button was not clear and the users did not know how to activate it.
     \begin{itemize}
         \item The button was hard to identify and it was not clear what it did. I will be changing the button to a more recognisable icon and adding a tooltip to explain what it does.
-        \item The current behavior of the button shows a globe icon when the map is not in zoom mode, and a zoom icon when the map is in zoom mode. This is not clear and I be inverting the icons.
+        \item The current behavior of the button shows a globe icon when the map is not in zoom mode, and a zoom icon when the map is in zoom mode. This is not clear and I will be inverting the icons.
     \end{itemize}
     \item The search bar was not clear and the users did not know how to use it.
     \begin{itemize}
@@ -1127,14 +1134,35 @@ However, I recieved many suggestions for improvement, some of which I will be im
         \item The search icon was not a button like the users expected. I will be changing the search icon to a button and adding a tooltip to explain what it does.
     \end{itemize}
     \item The users wanted the graphs to be zoomable on a separate window.
+    \begin{itemize}
+        \item This is a good idea, however the code base is not set up for this. I will be looking into this in the future, but it is not a priority at the moment.
+    \end{itemize}
     \item Functionality to right click a country to add country to comparison graph.
+    \begin{itemize}
+        \item I will not be implementing this feature as it does not follow good UX design. Adding a country implicitly is a better solution.
+    \end{itemize}
     \item Searching for a country did not highlight the country on the map.
+    \begin{itemize}
+        \item This is actually an intended feature, and was a bug in the code. I added a fix to highlight the country when it is selected.
+    \end{itemize}
 \end{itemize}
 
 \newpage
 
 \chapter{Conclusion}
+Overall, I am happy with the results of the project. I have learned how to use mutiple new technologies and how to use them together. I have also learned how to use Docker to deploy my application and how to use the fetch API to fetch data.\\
 
+The web application was well recieved by the testers and they were able to use it to extract information from the data. The application is interactive and allows the user to zoom in on countries. The application is also able to display the data in a meaningful way.
+
+\begin{center}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.95\textwidth]{Images/dashboard.png}
+        \caption{Application Screenshot}
+        \label{fig:dashboard-conc}
+    \end{figure}
+\end{center}
+I have created a tool which can be used to visualise and analyse an arbitrary pandemic dataset. The tool is able to display the data in a meaningful way and can be used to find trends in the data. It can also be used to compare countries and find out which countries are doing better or worse than others.\\
 \newpage
 
 \bibliographystyle{plain} % We choose the "plain" reference style

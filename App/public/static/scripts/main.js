@@ -191,14 +191,14 @@ d3.select("#zoom-toggle-button")
         zoomMode = !zoomMode; // Flip the state
 
         if (zoomMode) {
-            d3.select("#zoom-icon").text("zoom_in_map"); // Zoom Mode icon
+            d3.select("#zoom-icon").text("public"); // Earth Mode icon
 
             // 👉 If a country is already selected, zoom into it immediately
             if (appState.selectedCountryCode) {
                 zoomToSelectedCountry();
             }
         } else {
-            d3.select("#zoom-icon").text("public"); // Earth Mode icon
+            d3.select("#zoom-icon").text("zoom_in_map"); // Zoom Mode icon
             resetZoom(); // Reset zoom when switching back to Earth mode
         }
     });
