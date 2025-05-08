@@ -163,6 +163,12 @@
 \newpage
 
 \chapter{Abstract}
+\begin{center}
+    \LARGE{"We've actually invested very little in a system to stop an epidemic. We're not ready for the next epidemic."}
+\end{center}
+\begin{flushright}
+    \large{- Bill Gates, 2015 \cite{gates:2015}}
+\end{flushright}
 %Purpose
 With the recent pandemic of COVID-19, the world has become more aware of the need for data visualisation. The ability to see the spread of a virus and how it affects different countries is important for understanding the virus and how to contain it.\\
 %Methods
@@ -397,8 +403,7 @@ The data for this project will be sourced from the European Centre for Disease P
     "year_week": "2020-47",
     "rate_14_day": 6.5043,
     "cumulative_count": 44771,
-    "source": "Epidemic
-    intelligence national data"
+    "source": "Epidemic intelligence national data"
 }
 \end{lstlisting}
 \end{minipage}
@@ -415,8 +420,7 @@ The data for this project will be sourced from the European Centre for Disease P
     "year_week": "2020-47",
     "rate_14_day": 3.3395,
     "cumulative_count": 1695,
-    "source": "Epidemic
-    intelligence national data"
+    "source": "Epidemic intelligence national data"
 }
 \end{lstlisting}
 \end{minipage}
@@ -445,6 +449,15 @@ To explain this model, it's important to understand proportional reasoning. In t
 A way to think of why that is true is because the more infected people there are, the more likely it is for a susceptible person to become infected.\\
 This model is a good starting point for undestanding the spread of a virus, but it has some limitations. In this model, once you have recovered, you are no longer able to be infected. Another issue is that the model assumes the disease is non-fatal.
 
+\begin{center}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{SIR-Model.png}
+        \caption{Diagram of SIR Model with start values S=997, I=3, R=0, $\alpha$=0.0004, $\beta$=0.04. \cite{sirmodel}}
+        \label{fig:sir_model}
+    \end{figure}
+\end{center}
+
 \subsection{Solution to the SIR Model}
 The SIR model can be solved using numerical methods. The most common method is the Euler method. The Euler method is a simple method for solving ordinary differential equations. It is not the most accurate method, but it is easy to implement. The Euler method is represented by the following equations:
 \begin{align}
@@ -459,8 +472,7 @@ Where:
     \item $R_n$ is the number of recovered individuals at time $n$.
     \item $\Delta t$ is the time step.
 \end{itemize}
-If we look at the phase space of the SIR model, we can see that the model has a fixed point at the origin. This means that the model will always return to the origin. This is not the case in real life, as the disease will eventually die out. This is because the model does not take into account the finite population size.\\
-
+If we look at the phase space of the SIR model, we can see that the model has a fixed point at the origin. This means that the model will always return to the origin. This is not the case in real life, as the disease will eventually die out. This is because the model does not take into account the finite population size.
 \subsection{Improvements to the SIR Model}
 The SIR model can be improved by adding more compartments to the model. However, this makes the model more complex and harder to solve.
 \subsubsection{SEIR Model}
@@ -473,7 +485,7 @@ This model adds an exposed compartment to the SIR model. For individuals who hav
 \end{align}
 The SEIR model is better for simulations than the SIR model since it takes into account the incubation period of the disease. This is important as it is possible for a person to be infected but not yet infectious.\\
 It is beyond the scope of this project to go into detail about the SEIR model, but it is worth noting that the model is more complex and requires more data to solve. The model is also more accurate than the SIR model.
-
+\newpage
 \section{Statistical Analysis}
 Statistical analysis is a key part of this project. I will be using statistical analysis to find correlations between the data and other factors. I will be comparing the cumulative cases and deaths of two countries to see if there are any correlations between the two.\\
 
@@ -663,308 +675,19 @@ I restrucutred the data to look like this:
 The python code I used can be found in the appendix.
 
 \section{Country Selection}
-For this project, I need to decide on what list of countries to use. The GeoJSON file I will be using has a selection of countries, but a definitive list of countries doesn't exist.
+For this project, I need to decide on what list of countries to use. The GeoJSON file I will be using has a selection of countries, but a definitive list of countries doesn't exist.\\
 
-There are multiple countries that are in dispute due to political or territorial reasons. For example, Taiwan is not recognised as a country by the United Nations due to China needing to agree, but it is a country in its own right. I will be including Taiwan in my list of countries.
+There are multiple countries that are in dispute due to political or territorial reasons. For example, Taiwan is not recognised as a country by the United Nations due to China needing to agree, but it is a country in its own right. I will be including Taiwan in my list of countries.\\
 
-Another consideration are countries which aren't included in the $\mathbf{ISO}$ $\mathbf{3166-1}$ $\mathbf{Alpha-3}$ country code set which is what both the ECDC and GeoJSON file use. An example is Somaliland which is a self-declared state but is not recognised by the United Nations or the ISO-3166-1 country code, but the dataset does contain data so we will extend the country code set to include this.
+Another consideration are countries which aren't included in the $\mathbf{ISO}$ $\mathbf{3166-1}$ $\mathbf{Alpha-3}$ country code set which is what both the ECDC and GeoJSON file use. An example is Somaliland which is a self-declared state but is not recognised by the United Nations or the ISO-3166-1 country code, but the dataset does contain data so we will extend the country code set to include this.\\
 
-% There are multiple more examples like this, here is a list of countries I will be including in my dataset:
-% \newpage
-% \begin{center}
-%     \begin{minipage}{0.46\textwidth}
-%         \begin{tabular}{|p{10.5em}|p{6em}|}
-%             \hline
-%             Country or Area Name & ISO Code\\
-%             \hline
-%             Afghanistan & AFG\\
-%             Africa (total) & N/A\\
-%             Albania & ALB\\
-%             Algeria & DZA\\
-%             America (total) & N/A\\
-%             American Samoa & ASM\\
-%             Andorra & AND\\
-%             Angola & AGO\\
-%             Anguilla & AIA\\
-%             Antigua And Barbuda & ATG\\
-%             Argentina & ARG\\
-%             Armenia & ARM\\
-%             Aruba & ABW\\
-%             Asia (total) & N/A\\
-%             Australia & AUS\\
-%             Austria & AUT\\
-%             Azerbaijan & AZE\\
-%             Bahamas & BHS\\
-%             Bahrain & BHR\\
-%             Bangladesh & BGD\\
-%             Barbados & BRB\\
-%             Belarus & BLR\\
-%             Belgium & BEL\\
-%             Belize & BLZ\\
-%             Benin & BEN\\
-%             Bermuda & BMU\\
-%             Bhutan & BTN\\
-%             Bolivia & BOL\\
-%             Bonaire, Saint Eustatius And Saba & BES\\
-%             Bosnia And Herzegovina & BIH\\
-%             Botswana & BWA\\
-%             Brazil & BRA\\
-%             British Virgin Islands & VGB\\
-%             Brunei Darussalam & BRN\\
-%             Bulgaria & BGR\\
-%             Burkina Faso & BFA\\
-%             Burundi & BDI\\
-%             Cambodia & KHM\\
-%             Cameroon & CMR\\
-%             Canada & CAN\\
-%             Cape Verde & CPV\\
-%             Cayman Islands & CYM\\
-%             Central African Republic & CAF\\
-%             Chad & TCD\\
-%             \hline
-%         \end{tabular}
-%     \end{minipage}
-%     \hfill
-%     \begin{minipage}{0.46\textwidth}
-%         \begin{tabular}{|p{10.5em}|p{6em}|}
-%             \hline
-%             Country or Area Name & ISO Code\\
-%             \hline
-%             Chile & CHL\\
-%             China & CHN\\
-%             Colombia & COL\\
-%             Comoros & COM\\
-%             Congo & COG\\
-%             Cook Islands & COK\\
-%             Costa Rica & CRI\\
-%             Cote Divoire & CIV\\
-%             Croatia & HRV\\
-%             Cuba & CUB\\
-%             Curaçao & CUW\\
-%             Czechia & CZE\\
-%             Democratic Republic Of The Congo & COD\\
-%             Denmark & DNK\\
-%             Djibouti & DJI\\
-%             Dominica & DMA\\
-%             Dominican Republic & DOM\\
-%             Ecuador & ECU\\
-%             Egypt & EGY\\
-%             El Salvador & SLV\\
-%             Equatorial Guinea & GNQ\\
-%             Eritrea & ERI\\
-%             Estonia & EST\\
-%             Eswatini & SWZ\\
-%             Ethiopia & ETH\\
-%             EU/EEA (total) & N/A\\
-%             Europe (total) & N/A\\
-%             Falkland Islands (Malvinas) & FLK\\
-%             Faroe Islands & FRO\\
-%             Fiji & FJI\\
-%             Finland & FIN\\
-%             France & FRA\\
-%             French Polynesia & PYF\\
-%             Gabon & GAB\\
-%             Gambia & GMB\\
-%             Georgia & GEO\\
-%             Germany & DEU\\
-%             Ghana & GHA\\
-%             Gibraltar & GIB\\
-%             Greece & GRC\\
-%             Greenland & GRL\\
-%             Grenada & GRD\\
-%             Guam & GUM\\
-%             Guatemala & GTM\\
-%             Guernsey & GGY\\
-%             \hline
-%         \end{tabular}
-%     \end{minipage}
-
-%     \newpage
-%     \begin{minipage}{0.46\textwidth}
-%         \begin{tabular}{|p{10.5em}|p{6em}|}
-%             \hline
-%             Country or Area Name & ISO Code\\
-%             \hline
-%             Guinea & GIN\\
-%             Guinea Bissau & GNB\\
-%             Guyana & GUY\\
-%             Haiti & HTI\\
-%             Holy See & VAT\\
-%             Honduras & HND\\
-%             Hungary & HUN\\
-%             Iceland & ISL\\
-%             India & IND\\
-%             Indonesia & IDN\\
-%             Iran & IRN\\
-%             Iraq & IRQ\\
-%             Ireland & IRL\\
-%             Isle Of Man & IMN\\
-%             Israel & ISR\\
-%             Italy & ITA\\
-%             Jamaica & JAM\\
-%             Japan & JPN\\
-%             Jersey & JEY\\
-%             Jordan & JOR\\
-%             Kazakhstan & KAZ\\
-%             Kenya & KEN\\
-%             Kiribati & KIR\\
-%             Kosovo & XKX\\
-%             Kuwait & KWT\\
-%             Kyrgyzstan & KGZ\\
-%             Laos & LAO\\
-%             Latvia & LVA\\
-%             Lebanon & LBN\\
-%             Lesotho & LSO\\
-%             Liberia & LBR\\
-%             Libya & LBY\\
-%             Liechtenstein & LIE\\
-%             Lithuania & LTU\\
-%             Luxembourg & LUX\\
-%             Madagascar & MDG\\
-%             Malawi & MWI\\
-%             Malaysia & MYS\\
-%             Maldives & MDV\\
-%             Mali & MLI\\
-%             Malta & MLT\\
-%             Marshall Islands & MHL\\
-%             Mauritania & MRT\\
-%             Mauritius & MUS\\
-%             Mexico & MEX\\
-%             Micronesia (Federated States Of) & FSM\\
-%             \hline
-%         \end{tabular}
-%     \end{minipage}
-%     \hfill
-%     \begin{minipage}{0.46\textwidth}
-%         \begin{tabular}{|p{10.5em}|p{6em}|}
-%             \hline
-%             Country or Area Name & ISO Code\\
-%             \hline
-%             Moldova & MDA\\
-%             Monaco & MCO\\
-%             Mongolia & MNG\\
-%             Montenegro & MNE\\
-%             Montserrat & MSR\\
-%             Morocco & MAR\\
-%             Mozambique & MOZ\\
-%             Myanmar & MMR\\
-%             Namibia & NAM\\
-%             Nauru & NRU\\
-%             Nepal & NPL\\
-%             Netherlands & NLD\\
-%             New Caledonia & NCL\\
-%             New Zealand & NZL\\
-%             Nicaragua & NIC\\
-%             Niger & NER\\
-%             Nigeria & NGA\\
-%             North Macedonia & MKD\\
-%             Northern Mariana Islands & MNP\\
-%             Norway & NOR\\
-%             Oceania (total) & N/A\\
-%             Oman & OMN\\
-%             Pakistan & PAK\\
-%             Palau & PLW\\
-%             Palestine & PSE\\
-%             Panama & PAN\\
-%             Papua New Guinea & PNG\\
-%             Paraguay & PRY\\
-%             Peru & PER\\
-%             Philippines & PHL\\
-%             Poland & POL\\
-%             Portugal & PRT\\
-%             Puerto Rico & PRI\\
-%             Qatar & QAT\\
-%             Romania & ROU\\
-%             Republic of Türkiye & TUR\\
-%             Russia & RUS\\
-%             Rwanda & RWA\\
-%             Saint Kitts And Nevis & KNA\\
-%             Saint Lucia & LCA\\
-%             Saint Vincent And The Grenadines & VCT\\
-%             Samoa & WSM\\
-%             San Marino & SMR\\
-%             Sao Tome And Principe & STP\\
-%             Saudi Arabia & SAU\\
-%             \hline
-%         \end{tabular}
-%     \end{minipage}
-
-%     \newpage
-%     \begin{minipage}{0.46\textwidth}
-%         \begin{tabular}{|p{10.5em}|p{6em}|}
-%             \hline
-%             Country or Area Name & ISO Code\\
-%             \hline
-%             Senegal & SEN\\
-%             Serbia & SRB\\
-%             Seychelles & SYC\\
-%             Sierra Leone & SLE\\
-%             Singapore & SGP\\
-%             Sint Maarten & SXM\\
-%             Slovakia & SVK\\
-%             Slovenia & SVN\\
-%             Solomon Islands & SLB\\
-%             Somalia & SOM\\
-%             South Africa & ZAF\\
-%             South Korea & KOR\\
-%             South Sudan & SSD\\
-%             Spain & ESP\\
-%             Sri Lanka & LKA\\
-%             Sudan & SDN\\
-%             Suriname & SUR\\
-%             Sweden & SWE\\
-%             Switzerland & CHE\\
-%             Syria & SYR\\
-%             Taiwan & TWN\\
-%             Tajikistan & TJK\\
-%             Thailand & THA\\
-%             Timor Leste & TLS\\
-%             Togo & TGO\\
-%             Tonga & TON\\
-%             Trinidad And Tobago & TTO\\
-%             Tunisia & TUN\\
-%             Turks And Caicos Islands & TCA\\
-%             Tuvalu & TUV\\
-%             Uganda & UGA\\
-%             Ukraine & UKR\\
-%             United Arab Emirates & ARE\\
-%             United Kingdom & GBR\\
-%             United Republic Of Tanzania & TZA\\
-%             United States Of America & USA\\
-%             United States Virgin Islands & VIR\\
-%             Uruguay & URY\\
-%             Uzbekistan & UZB\\
-%             \hline
-%         \end{tabular}
-%     \end{minipage}
-%     \hfill
-%     \begin{minipage}{0.46\textwidth}
-%         \begin{tabular}{|p{10.5em}|p{6em}|}
-%             \hline
-%             Country or Area Name & ISO Code\\
-%             \hline
-%             Vanuatu & VUT\\
-%             Venezuela & VEN\\
-%             Vietnam & VNM\\
-%             Wallis And Futuna & WLF\\
-%             Western Sahara & ESH\\
-%             Yemen & YEM\\
-%             Zambia & ZMB\\
-%             Zimbabwe & ZWE\\
-%             Cyprus & CYP\\
-%             \hline
-%         \end{tabular}
-%     \end{minipage}
-% \end{center}
-
+There are more examples like this, but I will not mention every single one. I will be using the ISO-3166-1 country code set as a base, but I will be extending it to include countries which are not recognised by the United Nations for which I have data on.\\
 \newpage
+Initially, I wanted to use UNIX timestamps to store the date, but I have since changed my mind. This is because of of how the HTML slider tag works. The slider expects consistent step values, and UNIX timestamps are not consistent due to daylight savings time.\\
 
-Initially, I wanted to use UNIX timestamps to store the date, but I have since changed my mind. This is because of of how the HTML slider tag works. The slider expects consistent step values, and UNIX timestamps are not consistent due to daylight savings time.
-
-To combat this, I am storing data in the string form of "YYYY-ww" where YYYY is the year and ww is the week number. This is a consistent format and will work with the HTML slider tag. I will have a function to convert the string to a date object when I need to use it. It is also ISO 8601 compliant, which is a good standard to use.\\
+To combat this, I am storing data in the string form of "YYYY-ww" where YYYY is the year and ww is the week number. This is a consistent format and will work with the HTML slider tag. I will have a function to convert the string to a date object when I need to use it. It is also ISO 8601 compliant, which is a good standard to use.
 
 \section{Frontend}
-
 \subsection{User Interface and Experience}
 Below is my dashboard created using d3.js and HTML.
 \begin{center}
@@ -1010,8 +733,6 @@ The slider is a d3.js slider which allows the user to select a week. It required
 
 \section{Backend}
 For the data in my application, I am using the file "interface.js" to load the data from the JSON file. This file is an async module which exports a function to load the data. The function can fetch all data or data specfied in the parameters. The function will return a promise which resolves to the data. This is a simple way to load data from a file and is a common pattern in JavaScript.
-
-This is my first time ever dealing with async functions and promises.
 
 \section{Deployment}
 In this project, I used Docker to deploy my application. Docker is a containerisation platform which allows you to package your application and all its dependencies into a single container. The only prerequisite is that the host machine has the Docker engine installed. This is a good way to deploy applications as it allows for easy deployment and scaling.\\
