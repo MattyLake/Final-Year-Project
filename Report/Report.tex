@@ -179,27 +179,6 @@ The application discussed in this report is a web application which uses D3.js t
 The application is able to be used analyse the data and compare how different countries are affected over a time period.
 
 \newpage
-
-% \chapter{Introduction}
-% \begin{center}
-%     \LARGE{"We've actually invested very little in a system to stop an epidemic. We're not ready for the next epidemic."}
-% \end{center}
-% \begin{flushright}
-%     \large{- Bill Gates, 2015 \cite{gates:2015}}
-% \end{flushright}
-% \vspace{0.2cm}In recent years, we have all become too familiar with viruses and epidemics. From Ebola landing in Europe and America in the 2010s after ravaging through Africa, to Covid-19 in the 2020s.\\
-% New epidemics seem to be springing up at a rate never seen before \cite{morandFigure} and I think there are multiple causes to this.For one, access to medicine has been a huge help in increasing survival rates for all sorts of ailments. However, this has caused complacency in the world of medicine and Antibiotic Resistance, where medicine becomes ineffective to bacterial infections, has become one of the most prevalant issues the human race will face in the coming decades.
-% Being able to use existing data to predict how epidemics will spread and what
-
-
-% Going back to the 14th Century, the Black Death, or the bubonic plague was one of the worst outbreaks in history. It killed between 75 and 200 million people in a few years time which was 30-50\% of the total population of Europe at the time \cite{dewitte2008selectivity}. 
-
-
-% Smallpox still remains as the only human-affecting virus which has been functionally extinct as a result of human intervention \cite{cdc:smallpox}. This was a result of a combination of mass vaccination, containment and tracking.
-% In this paper, I wanted to focus on the tracking aspect of containing diseases and how it can be a useful tool to not only teach us about what happened previously, but to predict and forecast what could happen in the future. \\ \\
-% \textbf{This whole section will be rewritten at the end of the project. I will be able to give a more accurate introduction to the project once I have completed it.}\\
-% \newpage
-
 \chapter{Introduction}
 %[Introduction chapter that discusses the problem, the aims and objectives of the project, and how these objectives will be met.]
 The specific problem I am addressing in this project is in aide of communication of data. Data visualisation is a powerful, if not necessary, tool to understand large datasets such as the ones that concern worldwide pandemics.
@@ -244,7 +223,7 @@ For this project, I will use the MoSCoW structure to define the requirements of 
             \item The panel will have another time-series for use in comparison. The user will be able to choose a factor to compare against, such as population, GDP or another country's statistics.
             \item Highlight the secondary country if applicable.
         \end{itemize}
-        \item The dashboard must have a timeline slider of the epidemic.
+        \item The dashboard must have a timeline slider of the pandemic.
         \begin{itemize}
             \item The user must be able to scrub through the timeline.
             \item There will be a "playback" feature which will automatically scrub through the timeline.
@@ -287,7 +266,7 @@ For this project, I will use the MoSCoW structure to define the requirements of 
         \end{itemize}
         \item Extensibility to other datasets.
         \begin{itemize}
-            \item The code should be generic enough to be used for any epidemic data.
+            \item The code should be generic enough to be used for any pandemic data.
             \item Want to use a generic data format and a script which is able to cast the data into the correct format.
         \end{itemize}
         \item Frame updating to resizing the window.
@@ -295,7 +274,7 @@ For this project, I will use the MoSCoW structure to define the requirements of 
     \end{itemize}
     \item \textbf{\Large{Would Have}}
     \begin{itemize}
-        \item Predictctive modelling and forecasting.
+        \item Predictive modelling and forecasting.
         \begin{itemize}
             \item This is my most ambitious stretch goal. I would like to be able to predict the spread of the virus using the data I have. This would require a lot of work and research into the field of predictive modelling. This would likely be a separate project in itself.
         \end{itemize}
@@ -304,7 +283,7 @@ For this project, I will use the MoSCoW structure to define the requirements of 
 \newpage
 
 \chapter{Methodology}
-For this project I will incorperate a Waterfall model into my project since it will ensure my code and report as a whole is developed in a structured and ordered fashion.\\
+For this project I will incorporate a Waterfall model into my project since it will ensure my code and report as a whole is developed in a structured and ordered fashion.\\
 The steps of Waterfall I will be following are:
 \begin{enumerate}
     \item \textbf{\large{Requirements}}
@@ -360,18 +339,17 @@ The dashboard in the figure shows a real-time representation of the COVID-19 pan
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.95\textwidth]{PowerBI Example.png}
-        \caption{COVID-19 Dashboard Example}
+        \caption{COVID-19 Dashboard Example \cite{Badr2023}}
         \label{fig:covid19_dashboard}
     \end{figure}
 \end{center}
-
 This dashboard has a lot of information on it even at first glance. The map uses bubbles to denote hotspots of activity for the virus. The bubbles are sized by the number of cases in that country. The bubbles can also be clicked for more detailed information on that country. \\
 The user is also able to alter the time frame of the data, and the data is updated in real time.\\
-There is a lot here which I would like to incorperate into my own project. The map is a good way to visualise the data and the bubbles are a good way to show the number of cases in each country. I also like the big bold text which summarises the data which is easy to read.\\
+There is a lot here which I would like to incorporate into my own project. The map is a good way to visualise the data and the bubbles are a good way to show the number of cases in each country. I also like the big bold text which summarises the data which is easy to read.\\
 \newpage
 \subsection{Plague Inc.}
-Plague Inc. is a game published in 2012 by Ndemic Creations. It gives the user the ability to create and spread a virus across the world. The game was initially released on mobile devices and has since been released on PC and console.\\
-Mobiles games require accessible and easy to use interfaces, which is why Plague Inc. is a good example of a visual epidemic simulation. The game is simple to use and has a lot of information on the screen at once.
+Plague Inc. is a game published in 2012 by Ndemic Creations. It gives the user the ability to create and spread a virus across the world. The game was initially released on mobile devices and has since been released on PC and console. \cite{plagueinc}\\
+Mobiles games require accessible and easy to use interfaces, which is why Plague Inc. is a good example of a visual pandemic simulation. The game is simple to use and has a lot of information on the screen at once.
 \begin{center}
     \begin{figure}[h]
         \centering
@@ -380,15 +358,13 @@ Mobiles games require accessible and easy to use interfaces, which is why Plague
         \label{fig:plagueinc_dashboard}
     \end{figure}
 \end{center}
-Despite many systems being dramatised for the sake of gameplay, the game offers many features which could be useful for a real-world epidemic simulation. \\
+Despite many systems being dramatised for the sake of gameplay, the game offers many features which could be useful for a real-world pandemic simulation. \\
 The game uses a world map which gradually changes colour as the virus spreads, this is from many red dots appearing on the map. The user also has access to individual breakdowns of each country and can see the number of cases and deaths in each country.\\ 
-The game also has a transmission system which changes from coutnry to country. 
+The game also has a transmission system which changes from country to country. 
 \\ \\
-There is certain information provided in these examples that I will not be able to provide in my project. For example, the COVID-19 dashboard has real-time data, which I will not be able to provide. The Plague Inc. game has a transmission system which changes from country to country, which I will not be able to provide.\\
-
+There is certain information provided in these examples that I will not be able to provide in my project. For example, the COVID-19 dashboard has real-time data, which I will not be able to provide. The Plague Inc. game has a transmission system which shows the spread country to country, which I will not be able to provide.\\
 \newpage
-\section{Visualisation}
-\subsection{Covid-19 Data Sources}
+\section{Data Sources}
 The data for this project will be sourced from the European Centre for Disease Prevention and Control (ECDC) \cite{ecdc}. The data is historic and only has data from the 1st week of 2020 to the 23rd week of 2022. The data is in a JSON format and includes the number of cases and deaths per week for each country. The format of the data is as follows:
 
 \begin{minipage}{0.45\textwidth}
@@ -424,9 +400,11 @@ The data for this project will be sourced from the European Centre for Disease P
 }
 \end{lstlisting}
 \end{minipage}
-This is the format that the ECDC provide, but I will be ammending it slightly to make it easier to work with. I will be combining the cases and deaths into one object and adding a date field. This will make it easier to work with the data in the front end.\\
+This is the format that the ECDC provide, but I will be amending it slightly to make it easier to work with. I will be combining the cases and deaths into one object and adding a date field. This will make it easier to work with the data in the front end.\\
+
 It also needs to correspond with the GeoJSON data I will be using to render the map. \\
-It is worth noting that I don't want this code to be limited to just COVID-19 data. I want to be able to use this code for any epidemic data. This is why I am making the data more generic and easier to work with.\\
+
+It is worth noting that I don't want this code to be limited to just COVID-19 data. I want to be able to use this code for any pandemic data. This is why I am making the data more generic and easier to work with.
 \newpage
 \section{Compartmental Models}
 \subsection{SIR Model}
@@ -447,7 +425,7 @@ Where:
 \end{itemize}
 To explain this model, it's important to understand proportional reasoning. In the first equation, \ref{sir_model_dS}, the rate of change of the susceptible population is proportional to the complement of the product of the susceptible and infected populations.\\
 A way to think of why that is true is because the more infected people there are, the more likely it is for a susceptible person to become infected.\\
-This model is a good starting point for undestanding the spread of a virus, but it has some limitations. In this model, once you have recovered, you are no longer able to be infected. Another issue is that the model assumes the disease is non-fatal.
+This model is a good starting point for understanding the spread of a virus, but it has some limitations. In this model, once you have recovered, you are no longer able to be infected. Another issue is that the model assumes the disease is non-fatal.
 
 \begin{center}
     \begin{figure}[h]
@@ -506,8 +484,8 @@ I would also like to compare number of cases to other statistics I have availabl
 
 \newpage
 \chapter{Design Review}
-\section{Wireframing}
-I need to work within the constraints of node.js and D3.js for my designs. Below is a wireframe of the dashboard I plan on creating.
+\section{Wire-framing}
+I need to work within the constraints of node.js and D3.js for my designs. Below is a wire-frame of the dashboard I plan on creating.
 \begin{center}
     \begin{figure}[h]
         \centering
@@ -519,7 +497,7 @@ I need to work within the constraints of node.js and D3.js for my designs. Below
 Specific features of the dashboard include:
 \begin{itemize}
     \item A map of the Earth.
-    \item An interactive timeline of the epidemic.
+    \item An interactive timeline of the pandemic.
     \item A area chart showing the number of cases, deaths and population susceptible.
     \item Listed hotspots and the percentage change within the countries.
     \item Hotspots on the map.
@@ -544,7 +522,7 @@ D3.js is a good choice for this project as it natively supports GeoJSON data whi
 
 This is exclusively used on a web browser, so I will be using node.js to serve the data to the front end.\\
 
-D3.js also has many built-in functions for creating different types of graphs and charts and interacting with them. As an example, D3.js has a built-in function for calculuting the bounding box of a country polygon. I will be using this function to calculate where to zoom in on the map. Here's a JavaScript snippet of how I will be using this function:
+D3.js also has many built-in functions for creating different types of graphs and charts and interacting with them. As an example, D3.js has a built-in function for calculating the bounding box of a country polygon. I will be using this function to calculate where to zoom in on the map. Here's a JavaScript snippet of how I will be using this function:
 
 \begin{lstlisting}[language=JavaScript]
 // Creates a 2d array of the bounding box of the country
@@ -570,7 +548,7 @@ svg.transition()
 The GeoJSON data has much more information than the COVID-19 data. It includes geometry of the country, information regarding the countries economy, sovereign status, GDP, all in multiple languages. I will be cleaning the data to only include relevant information for this project: country name in English, country code (to link the data with the Covid-19 JSON file) and geometry information. 
 
 \section{Chloropleth Maps}
-For this project, I referred to a book on data visualisation by Andy Kirk \cite{andy2019kirk}. The book is a good introduction to maps with data visulalisation as well as the use of colour in maps making it a good resource. \\
+For this project, I referred to a book on data visualisation by Andy Kirk \cite{andy2019kirk}. The book is a good introduction to maps with data visualisation as well as the use of colour in maps making it a good resource. \\
 
 \begin{wrapfigure}{l}{0.4\textwidth}
     \begin{center}
@@ -646,7 +624,7 @@ Before I start working on the front end, I need to clean the data. The data from
 
 I will be using Python to clean the data, since doing this is a one-time task and Python is a good language for data manipulation. I will be using the json library to read the JSON file and the defaultdict package to manipulate the data into a standardised form. I will then write the cleaned data to a new JSON file.\\
 
-I restrucutred the data to look like this:
+I restructured the data to look like this:
 \begin{center}
     \begin{lstlisting}
     {
@@ -691,7 +669,7 @@ To combat this, I am storing data in the string form of "YYYY-ww" where YYYY is 
 
 \section{Frontend}
 \subsection{User Interface and Experience}
-Below is my dashboard created using d3.js and HTML.
+Below is my dashboard created using D3.js and HTML.
 \begin{center}
     \begin{figure}[h]
         \centering
@@ -704,7 +682,7 @@ I will go into more detail about the features of the dashboard in the coming sec
 \subsection{World Map}
 The world map in this project was a success in planning. I used the D3.js library to render the map and it worked well. The map is interactive and allows the user to zoom in on countries.
 
-I was able to take advantage of features in D3.js like transisition and zoom for a smoother feel to the map. The chloropleth map is a good way to represent the data and allows the user to see the hotspots of the virus.
+I was able to take advantage of features in D3.js like transition and zoom for a smoother feel to the map. The chloropleth map is a good way to represent the data and allows the user to see the hotspots of the virus.
 
 I used the GeoJSON polygon data to render the map. This had many beneficial side effects, like: Choice of projection, the multipolygon feature of GeoJSON, rendering the data in SVG format, and the ability to use D3.js features like transitions and zoom.
 
@@ -720,7 +698,7 @@ The comparison graph is a simple line chart with a logarithmic scale. The x-axis
     \item Cases per GDP per capita
     \item Deaths per GDP per capita
 \end{itemize}
-I intended on having more options, however I was unsure that a line graph would be the best way to represent the data with a binary part like sovereign status.
+I intended on having more options, however I was unsure that a line graph would be the best way to represent the data with a binary part like Sovereign status.
 \subsection{Search Bar}
 The search bar is a simple input field which is designed to behave the same as just clicking a country. The user can type in the name of the country, and the field will show a list of countries which match the input. The user can then click on the country and the map will zoom in on the country. This is a good way to allow the user to find a country quickly without having to scroll through the map.
 
@@ -734,7 +712,7 @@ The application has a live playback feature which allows the user to see how the
 The slider is a d3.js slider which allows the user to select a week. It required some logic to cast the position on the slider to a week. The slider is a good way to to allow the user to select a week without having to type in the date.
 
 \section{Backend}
-For the data in my application, I am using the file "interface.js" to load the data from the JSON file. This file is an async module which exports a function to load the data. The function can fetch all data or data specfied in the parameters. The function will return a promise which resolves to the data. This is a simple way to load data from a file and is a common pattern in JavaScript.
+For the data in my application, I am using the file "interface.js" to load the data from the JSON file. This file is an async module which exports a function to load the data. The function can fetch all data or data specified in the parameters. The function will return a promise which resolves to the data. This is a simple way to load data from a file and is a common pattern in JavaScript.
 
 \section{Deployment}
 In this project, I used Docker to deploy my application. Docker is a containerisation platform which allows you to package your application and all its dependencies into a single container. The only prerequisite is that the host machine has the Docker engine installed. This is a good way to deploy applications as it allows for easy deployment and scaling.\\
@@ -841,24 +819,24 @@ The results of the questions are below:\\
 \end{minipage}
 
 \newpage
-Overall, I am happy with the results of the user testing. My worst answered question was question 5, where only 50\% of users got the question correct. This was somewhat expected as the question required the uesr to use the program in a way that was not initially intended. The question was asking the user to find the peak case count of a country, which is not a feature of the program. The users were able to find the data, but they were not able to find the peak case count. This is something I will be looking to improve in the future.
+Overall, I am happy with the results of the user testing. My worst answered question was question 5, where only 50\% of users got the question correct. This was somewhat expected as the question required the user to use the program in a way that was not initially intended. The question was asking the user to find the peak case count of a country, which is not a feature of the program. The users were able to find the data, but they were not able to find the peak case count. This is something I will be looking to improve in the future.
 
 \section{User Feedback}
 The users were overall happy with the application. They liked the design and the way the data was presented. The users also liked the interactivity of the map and how they could zoom in on countries.\\
 
-However, I recieved many suggestions for improvement, some of which I will be implementing. The main suggestions were:
+However, I received many suggestions for improvement, some of which I will be implementing. The main suggestions were:
 \begin{itemize}
     \item The zoom button was not clear and the users did not know how to activate it.
     \begin{itemize}
         \item The button was hard to identify and it was not clear what it did. I will be changing the button to a more recognisable icon and adding a tooltip to explain what it does.
-        \item The current behavior of the button shows a globe icon when the map is not in zoom mode, and a zoom icon when the map is in zoom mode. This is not clear and I will be inverting the icons.
+        \item The current behaviour of the button shows a globe icon when the map is not in zoom mode, and a zoom icon when the map is in zoom mode. This is not clear and I will be inverting the icons.
     \end{itemize}
     \item The search bar was not clear and the users did not know how to use it.
     \begin{itemize}
         \item The behaviour of the search bar and the comparison search bar were slightly different and one required the enter key to be pressed. I will be changing the search bar to behave the same as the comparison search bar.
         \item The search icon was not a button like the users expected. I will be changing the search icon to a button and adding a tooltip to explain what it does.
     \end{itemize}
-    \item The users wanted the graphs to be zoomable on a separate window.
+    \item The users wanted the graphs to be viewable on a separate, larger window.
     \begin{itemize}
         \item This is a good idea, however the code base is not set up for this. I will be looking into this in the future, but it is not a priority at the moment.
     \end{itemize}
@@ -875,9 +853,9 @@ However, I recieved many suggestions for improvement, some of which I will be im
 \newpage
 
 \chapter{Conclusion}
-Overall, I am happy with the results of the project. I have learned how to use mutiple new technologies and how to use them together. I have also learned how to use Docker to deploy my application and how to use the fetch API to fetch data.\\
+Overall, I am happy with the results of the project. I have learned how to use multiple new technologies and how to use them together. I have also learned how to use Docker to deploy my application and how to use the fetch API to fetch data.\\
 
-The web application was well recieved by the testers and they were able to use it to extract information from the data. The application is interactive and allows the user to zoom in on countries. The application is also able to display the data in a meaningful way.
+The web application was well received by the testers and they were able to use it to extract information from the data. The application is interactive and allows the user to zoom in on countries. The application is also able to display the data in a meaningful way.
 
 \begin{center}
     \begin{figure}[h]
