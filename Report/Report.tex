@@ -642,15 +642,15 @@ On the next page is a sequence diagram of the data fetching process. The diagram
 
 \newpage
 \section{Cleaning the Data}
-Before I start working on the front end, I need to clean the data. The data from the ECDC is in a JSON format, but it is not in a format that is easy to work with. I need to combine the cases and deaths into one object and add a date field. This will make it easier to work with the data in the front end.
+Before I start working on the front end, I need to clean the data. The data from the ECDC is in a JSON format, but it is not in a format that is easy to work with. I need to combine the cases and deaths into one object and add a date field. This will make it easier to work with the data in the front end.\\
 
-I will be using Python to clean the data, since doing this is a one-time task and Python is a good language for data manipulation. I will be using the Pandas library to read the JSON file and manipulate the data. I will then write the cleaned data to a new JSON file.
+I will be using Python to clean the data, since doing this is a one-time task and Python is a good language for data manipulation. I will be using the json library to read the JSON file and the defaultdict package to manipulate the data into a standardised form. I will then write the cleaned data to a new JSON file.\\
 
 I restrucutred the data to look like this:
 \begin{center}
     \begin{lstlisting}
     {
-        "Afghanistan": {
+        "AFG": {
             "properties": {
                 "country": "Afghanistan",
                 "country_code": "AFG",
@@ -663,7 +663,9 @@ I restrucutred the data to look like this:
                     "cases": 0,
                     "deaths": 0,
                     "cumulative_cases": 0,
-                    "cumulative_deaths": 0
+                    "cumulative_deaths": 0,
+                    "rate_14_day_cases": 0.0,
+                    "rate_14_day_deaths": 0.0
                 },
                 [...]
             }
@@ -685,7 +687,7 @@ There are more examples like this, but I will not mention every single one. I wi
 \newpage
 Initially, I wanted to use UNIX timestamps to store the date, but I have since changed my mind. This is because of of how the HTML slider tag works. The slider expects consistent step values, and UNIX timestamps are not consistent due to daylight savings time.\\
 
-To combat this, I am storing data in the string form of "YYYY-ww" where YYYY is the year and ww is the week number. This is a consistent format and will work with the HTML slider tag. I will have a function to convert the string to a date object when I need to use it. It is also ISO 8601 compliant, which is a good standard to use.
+To combat this, I am storing data in the string form of "YYYY-ww" where YYYY is the year and ww is the week number. This is a consistent format and will work with the HTML slider tag. I will have a function to convert the string to a date object when I need to use it. It is also ISO 8601 compliant, which is a common standard for this type of data.
 
 \section{Frontend}
 \subsection{User Interface and Experience}
@@ -738,6 +740,8 @@ For the data in my application, I am using the file "interface.js" to load the d
 In this project, I used Docker to deploy my application. Docker is a containerisation platform which allows you to package your application and all its dependencies into a single container. The only prerequisite is that the host machine has the Docker engine installed. This is a good way to deploy applications as it allows for easy deployment and scaling.\\
 
 I only used Docker in the production environment, as I was developing the application on my local machine. In the README file of my project, I have included instructions on how to run the application in both the node.js runtime and the Docker container.\\
+
+I decided against using the Docker image to run the data cleaning script for debugging purposes. But Docker would be a good solution because of the dockerfile's capability for "layers". If the data has been cleaned already, the dockerfile will not need to run the data cleaning script again. \\
 
 In my Dockerfile, I used the node.js runtime as the base image, and then copied the files into the container. I then installed the dependencies using npm and exposed the port 8080. You can see the Dockerfile below:
 
