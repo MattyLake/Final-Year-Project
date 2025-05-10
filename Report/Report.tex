@@ -170,27 +170,27 @@
     \large{- Bill Gates, 2015 \cite{gates:2015}}
 \end{flushright}
 %Purpose
-With the recent pandemic of COVID-19, the world has become more aware of the need for data visualisation. The ability to see the spread of a virus and how it affects different countries is important for understanding the virus and how to contain it.\\
+With the recent pandemic of COVID-19, the world has become more aware of the need for data visualisation. The ability to see the spread of a virus and how it affects different countries is important for understanding the transmission of the virus and how to contain it.\\
 %Methods
-This project aims to create a tool which can visualise epidemic and pandemic data in a way that is easy to understand. The tool will be able to show the number of cases and deaths per week for each country. The tool will also be able to show a timeline of the pandemic and give the user the ability to compare how different countries are affected.\\
+This project aims to create a tool which can visualise epidemic and pandemic data in a way that is easily understood. The tool has been designed to show the number of cases and deaths per week for each country. The tool also demonstrates a progressive timeline of the pandemic and its movements, and give the user the ability to compare and contrast how different countries are affected.\\
 %Findings
-The application discussed in this report is a web application which uses D3.js to render the data. The data is in a JSON format and is sourced from the European Centre for Disease Prevention and Control (ECDC). However, the data encoded into a more general format to allow for the application to be used for any data.\\
+The application considered in this report is a web-based tool which uses D3.js to simplify and render given transmission data. The data is in a JSON format and is sourced from the European Centre for Disease Prevention and Control (ECDC). For this dissertation, I have created an encoding script which imports data of any format and outputs the data in a standardised form. This change enables analysis of a broader range of data. By creating this script, the application has a broader spectrum for analysis.
 %Implications
 The application is able to be used analyse the data and compare how different countries are affected over a time period.
 
 \newpage
 \chapter{Introduction}
 %[Introduction chapter that discusses the problem, the aims and objectives of the project, and how these objectives will be met.]
-The specific problem I am addressing in this project is in aide of communication of data. Data visualisation is a powerful, if not necessary, tool to understand large datasets such as the ones that concern worldwide pandemics.
+The specific problem to be addressed in this project is to support and simplify the communication of big datasets for analysis and assessment. A key feature of the application is ability to visualise the transmission of a pandemic.\\
 
-Of course, data visualisation is just one step of the solution to eradicating pandemics. It relies on countries having accurate data and being willing to share it. However, this is not always the case. For example, in the early days of the COVID-19 pandemic, China was not forthcoming with their data \cite{chinawrongdata:2019}. This made it difficult for other countries to prepare for the virus.
+Data visualisation is just one step of the solutions of containing and analysing pandemics movements. A limiting factor of any application is the quality and accuracy of the data pooled. In this case, the effect is compounded by only using one source. Other factors would factors would need considered such as geo-political transparency. As an example, in the early days of the COVID-19 pandemic, China was not forthcoming with their data \cite{chinawrongdata:2019}. This made it difficult for other countries to prepare for the virus.\\
 
 \section{Aims and Objectives}
-The aim of this project is to create a tool which can visualise epidemic data in a way that is easy to understand. The tool will be able to show the number of cases and deaths per week for each country. The tool will also be able to show a timeline of the epidemic and give an worldwide overview of the spread of the virus.
+The outcome required of this project is to create a tool which can visualise epidemic data in a way that is accessible to all. The interactive tool will enable the user to show the number of cases and deaths per week for multiple countries visually in a time-series. A feature of the application has the ability to progressively illustrate a timeline of the epidemic giving a worldwide transmission overview.\\
 
-To achieve this aim, I will be using a node.js backend to serve the data to the front end. The front end will be a web application which will use D3.js to render the data. The data will be in a JSON format and will be sourced from the European Centre for Disease Prevention and Control (ECDC) \cite{ecdc}. The data will be in a similar format to the COVID-19 data, but will be more generic so it can be used for any epidemic data.
+To achieve this aim, I will be using a node.js backend to serve the data to the front end. The front end will be a web application which will use D3.js to render the data. The data will be in a JSON format and will be sourced from the European Centre for Disease Prevention and Control (ECDC) \cite{ecdc}. The data will be in a similar format to the COVID-19 data, but will be more generic so it can be used for any epidemic data.\\
 
-For my design methodology, I will be using the Waterfall model to structure my project. This will ensure that my code and report are developed in a structured and ordered fashion. Doing the project section by section will allow me to focus on each part of the project individually and ensure that I am on the right path.
+My design methodology utilises the Waterfall model to support a structured workflow for my project. This will ensure a logically sequenced approach to coding and report architecture which allow focus in each part of the project.
 \newpage
 \begin{center}
     \begin{figure}[h]
@@ -200,16 +200,10 @@ For my design methodology, I will be using the Waterfall model to structure my p
         \label{fig:gantt_chart}
     \end{figure}
 \end{center}
-Along with using the Waterfall model, I created a Gantt chart to roughly plan my time for the project. This will help me stay on track and ensure that I am not spending too much time on one section of the project. I will go into further detail about the Gantt chart in the Methodology section of this report.
-
-
-
-% This project concerns the visualisation of epidemic data. Specifically the data from the COVID-19 pandemic, but the code will be generic enough to be used for any epidemic data. Visualising the data in a way that is easy to understand is important for understanding the spread of the virus for a wide population.\\
+Along with using the Waterfall model, I created a Gantt chart to roughly plan my time for the project. This approach ensures the project is on track against a critical path and establish that I am not spending too much time on one section of the project. I will go into further detail about the Gantt chart in the Methodology section of this report.
 \newpage
-
-
 \chapter{Problem Domain}
-For this project, I will use the MoSCoW structure to define the requirements of the project. This specifies the requirements into layers of priority and sets the scope of my project into perspective.\\
+For this project, I have elected to use the MoSCoW approach to define the requirements of the project. This specifies the requirements into layers of priority and sets the scope of the project.\\
 \begin{itemize}
     \item \textbf{\Large{Must Have (Minimum Viable Product)}}
     \begin{itemize}
@@ -283,7 +277,7 @@ For this project, I will use the MoSCoW structure to define the requirements of 
 \newpage
 
 \chapter{Methodology}
-For this project I will incorporate a Waterfall model into my project since it will ensure my code and report as a whole is developed in a structured and ordered fashion.\\
+The project incorporates a Waterfall model into my project since it will ensure my code and report as a whole is developed in a structured and ordered fashion.\\
 The steps of Waterfall I will be following are:
 \begin{enumerate}
     \item \textbf{\large{Requirements}}
@@ -314,22 +308,16 @@ The steps of Waterfall I will be following are:
         \item For testing, I will be using a variety of normal, boundary and erroneous tests to check my software for crashes, unexpected results, and vulnerabilities.
         \item I also plan on having 3rd-party applicants to test my application. They would have a list of things to do in the application so I can analyse the ease of use.
         \item I would also ask them to fill in a questionnaire.
+        \item I will use the feedback from the testers to improve my application.
     \end{itemize}
     \item \textbf{\large{Operations}}
     \begin{itemize}
-        \item I want to deploy my application to a server hosted by the university.
+        \item I want to deploy my application to a docker container and eventually a server.
         \item Node.js applications are commonly deployed onto servers and having a production repository would be a good standard for myself. Pushing to a server from a local git repository is a highly transferable skill which is widely used.
     \end{itemize}
 \end{enumerate}
-\section{Gantt Chart}
-    \begin{center}
-        \includegraphics[height=0.95\textheight]{gantt_chart}
-    \end{center}
 
 \newpage
-
-\newpage
-
 \chapter{Literature Review}
 \section{Existing Solutions}
 \subsection{COVID-19 Dashboard}
@@ -343,7 +331,7 @@ The dashboard in the figure shows a real-time representation of the COVID-19 pan
         \label{fig:covid19_dashboard}
     \end{figure}
 \end{center}
-This dashboard has a lot of information on it even at first glance. The map uses bubbles to denote hotspots of activity for the virus. The bubbles are sized by the number of cases in that country. The bubbles can also be clicked for more detailed information on that country. \\
+This dashboard has a broad spectrum of information even at first glance. The map uses bubbles to denote hotspots of activity for the virus. The bubbles are sized by the number of cases in that country. The bubbles can also be clicked for more detailed information on that country. \\
 The user is also able to alter the time frame of the data, and the data is updated in real time.\\
 There is a lot here which I would like to incorporate into my own project. The map is a good way to visualise the data and the bubbles are a good way to show the number of cases in each country. I also like the big bold text which summarises the data which is easy to read.\\
 \newpage
@@ -400,6 +388,7 @@ The data for this project will be sourced from the European Centre for Disease P
 }
 \end{lstlisting}
 \end{minipage}
+
 This is the format that the ECDC provide, but I will be amending it slightly to make it easier to work with. I will be combining the cases and deaths into one object and adding a date field. This will make it easier to work with the data in the front end.\\
 
 It also needs to correspond with the GeoJSON data I will be using to render the map. \\
@@ -462,6 +451,7 @@ This model adds an exposed compartment to the SIR model. For individuals who hav
 \frac{dR}{dt} &= \gamma I - \mu R \label{seir_model_dR}
 \end{align}
 The SEIR model is better for simulations than the SIR model since it takes into account the incubation period of the disease. This is important as it is possible for a person to be infected but not yet infectious.\\
+
 It is beyond the scope of this project to go into detail about the SEIR model, but it is worth noting that the model is more complex and requires more data to solve. The model is also more accurate than the SIR model.
 \newpage
 \section{Statistical Analysis}
@@ -853,7 +843,7 @@ However, I received many suggestions for improvement, some of which I will be im
 \newpage
 
 \chapter{Conclusion}
-Overall, I am happy with the results of the project. I have learned how to use multiple new technologies and how to use them together. I have also learned how to use Docker to deploy my application and how to use the fetch API to fetch data.\\
+In undertaking this project, I have met the objectives set. I have learned how to use multiple new technologies and how to use them together. I have also learned how to use Docker to deploy my application and how to use the fetch API to fetch data.\\
 
 The web application was well received by the testers and they were able to use it to extract information from the data. The application is interactive and allows the user to zoom in on countries. The application is also able to display the data in a meaningful way.
 
@@ -872,13 +862,13 @@ I have created a tool which can be used to visualise and analyse an arbitrary pa
 \begin{itemize}
     \item \textbf{Choropleth Map} - A map in which areas are shaded or patterned in proportion to the value of a variable being represented.
     \item \textbf{D3.js} - A JavaScript library, Data-Driven-Documents, used for producing dynamic, interactive data visualisations in web browsers.
-    \item \textbf{GeoJSON} - A format for encoding a variety of geographic data structures using JavaScript Object Notation (JSON).
+    \item \textbf{JSON} - JavaScript Object Notation, a lightweight data interchange format that is easy for humans to read and write and easy for machines to parse and generate.
+    \item \textbf{GeoJSON} - A format for encoding a variety of geographic data structures using JSON.
     \item \textbf{Node.js} - An open-source, cross-platform, back-end JavaScript runtime environment that executes JavaScript code outside a web browser.
     \item \textbf{SIR Model} - A simple compartmental model used in epidemiology to simulate the spread of infectious diseases.
     \item \textbf{Epidemic} - A sudden increase in the number of cases of a disease above what is normally expected in a population in a given area.
     \item \textbf{Pandemic} - An epidemic that has spread across a large region, for instance multiple continents or worldwide.
     \item \textbf{Docker} - A platfirm for developing, shipping, and running applications in containers.
-    \item \textbf{JSON} - JavaScript Object Notation, a lightweight data interchange format that is easy for humans to read and write and easy for machines to parse and generate.
     \item \textbf{ISO-3166-1} - The International Organization for Standardization (ISO) standard for country codes.
     \item \textbf{SVG} - Scalable Vector Graphics, an XML-based vector image format for two-dimensional graphics with support for interactivity and animation.
 \end{itemize}
@@ -996,4 +986,9 @@ I have created a tool which can be used to visualise and analyse an arbitrary pa
     
     print("Data successfully transformed and saved to 'pandemicData.json'")
 \end{lstlisting}
+\newpage
+\section{Gantt Chart}
+    \begin{center}
+        \includegraphics[height=0.95\textheight]{gantt_chart}
+    \end{center}
 \end{document}
