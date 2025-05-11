@@ -2,9 +2,11 @@ import { getCountryData } from "./countryGraph.js";
 
 let svg, x, y, line, baseLinePath, compareLinePath;
 let container, width, height;
-let weekMarker = null; // Declare weekMarker here
-let weekLabel = null; // Declare weekLabel here
+let weekMarker = null; // Declare weekMarker
+let weekLabel = null; // Declare weekLabel
 
+
+// Initialize the comparison graph
 export function initComparisonGraph(containerSelector) {
     container = document.querySelector(containerSelector);
     const containerWidth = container.getBoundingClientRect().width;
@@ -58,7 +60,7 @@ export function initComparisonGraph(containerSelector) {
     .attr("fill", "white")
     .attr("font-size", "12px");
 
-    // Optional: clear previous listeners if reinited
+    // Clear previous listeners if reinitiated
     document.getElementById("compare-metric")?.addEventListener("change", () => {
         if (window.fullPandemicDataset) updateComparisonGraph(window.fullPandemicDataset);
     });
@@ -72,6 +74,7 @@ export function initComparisonGraph(containerSelector) {
     });
 }
 
+// Update the comparison graph with new data
 export function updateComparisonGraph(fullDataset) {
     const metric = document.getElementById("compare-metric").value;
     const compareEntry = document.getElementById("compare-country-code").value;
@@ -96,7 +99,7 @@ export function updateComparisonGraph(fullDataset) {
     if (!countryData) {
         console.error('No data to draw');
 
-        // 👇 Hide the graph if no data
+        // Hide the graph if no data
         d3.select("#comparison-graph")
             .style("visibility", "hidden")
             .style("opacity", 0);
@@ -129,6 +132,7 @@ export function updateComparisonGraph(fullDataset) {
     updateWeekMarkerComparison()
 }
 
+// Moves the week marker to the current week
 export function updateWeekMarkerComparison() {
     if (!weekMarker || !weekLabel) {
         console.warn('Week marker or label not initialized yet.');
@@ -203,8 +207,6 @@ function prepareCountryLineData(code, metric, fullDataset, normalize = false) {
     const gdpPerCapita = (gdpMillion > 0 && population > 0)
     ? (gdpMillion * 1_000_000) / population
     : 1;
-
-    console.log(`Country: ${country.name}, GDP per capita: ${gdpPerCapita}`);
 
     return Object.entries(country.data)
         .map(([week, values]) => {

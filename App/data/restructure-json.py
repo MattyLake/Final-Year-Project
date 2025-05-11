@@ -57,7 +57,7 @@ for entry in json_data:
     rate_14_day = entry.get("rate_14_day", 0.0)
 
     ########################################################################################
-    # AMMEND THIS AREA TO FIX TO YOUR OWN JSON FILE
+    # AMEND THIS AREA TO FIX TO YOUR OWN JSON FILE
     
     # Store values based on indicator type
     if indicator == "cases":

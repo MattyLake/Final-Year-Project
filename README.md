@@ -32,7 +32,7 @@ To run the application locally on a node.js runtime, follow:
 `git clone https://github.com/MattyLake/Final-Year-Project`
 2. Navigate to the App folder
 `cd App`
-3. Install npm dependancies
+3. Install npm dependencies
 `npm install`
 4. Start the node.js runtime
 `npm start`
@@ -56,4 +56,4 @@ To deploy the application to a server, use the docker daemon.
 ## Accessing the Report
 
 To access the report, this repository contains a .tex file, a .bib file and a fully rendered pdf, along with the images in the report.
-To build the .tex file, I used the [MikTex](https://github.com/MiKTeX/miktex) LaTeX kernel which will add many more files to the respository. Refer to the .gitignore to see which files.
+To build the .tex file, I used the [MikTex](https://github.com/MiKTeX/miktex) LaTeX kernel which will add many more files to the repository. Refer to the .gitignore to see which files.

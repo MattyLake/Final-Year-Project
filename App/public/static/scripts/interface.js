@@ -12,7 +12,6 @@ export async function loadPandemicDataForCountry(countryCode) {
     });
 }
 
-//
 export async function getUniqueDataKeys() {
     return d3.json("data/pandemicData").then(function(data) {
         const keys = Object.keys(data[Object.keys(data)[0]].data);

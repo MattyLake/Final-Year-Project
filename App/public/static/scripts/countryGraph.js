@@ -1,20 +1,15 @@
 const container = document.getElementById('country-graph');
 const containerWidth = container.getBoundingClientRect().width;
 
-// window.addEventListener('load', () => {
-//     drawLogGraphForCountry(getAppState().selectedCountryCode);
-// });
-
-// Now set width and height dynamically
+// Set width and height dynamically
 const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 const width = containerWidth - margin.left - margin.right;
 const height = 200 - margin.top - margin.bottom; // keep height fixed for now
-console.log('Container width:', containerWidth, 'Graph width:', width, 'Graph height:', height);
 
 let weekMarker = null; // Declare weekMarker here
 let weekLabel = null; // Declare weekLabel here
 
-// Create SVG once
+// Create SVG
 const svgLog = d3.select("#country-graph")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -94,7 +89,7 @@ function prepareGraphData(countryData) {
             date: parseWeek(week),
             cases: entry.cases,
             deaths: entry.deaths,
-            susceptible: Math.max(1, population - entry.cases - entry.deaths)
+            susceptible: Math.max(1, population - entry.cases - entry.deaths) // For future use
         };
     });
 }
@@ -135,6 +130,7 @@ export async function drawLogGraphForCountry(countryCode) {
     updateWeekMarkerCountry(); // Update week marker to current week
 }
 
+// Moves the week marker to the current week
 export function updateWeekMarkerCountry() {
     if (!weekMarker || !weekLabel) {
         console.warn('Week marker or label not initialized yet.');
@@ -156,6 +152,7 @@ export function updateWeekMarkerCountry() {
         .text(appState.currentWeek); // set text to current week
 }
 
+// Update the graph lines with new data
 function updateGraphLines(graphData) {
     // Update x and y domain based on new data
     x.domain(d3.extent(graphData, d => d.date));
@@ -185,10 +182,4 @@ function updateGraphLines(graphData) {
         .transition()
         .duration(1000)
         .attr("d", lineDeaths);
-
-    // d3.select(".line-susceptible")
-    //     .datum(graphData)
-    //     .transition()
-    //     .duration(1000)
-    //     .attr("d", lineSusceptible);
 }

@@ -16,12 +16,11 @@ const datesArray = await getUniqueDataKeys().then(function(data) {
 let fullPandemicDataset = {};
 async function loadPandemicDataset() {
     try {
-        const response = await fetch("data/pandemicData"); // or wherever your file is
+        const response = await fetch("data/pandemicData"); // Fetch the dataset
         if (!response.ok) {
             throw new Error('Network error');
         }
         fullPandemicDataset = await response.json();
-        console.log('Pandemic dataset loaded:', fullPandemicDataset);
     } catch (error) {
         console.error('Error loading pandemic dataset:', error);
     }
@@ -40,9 +39,7 @@ mapGeoData.features.forEach(feature => {
     }
 });
 
-console.log('Merged pandemic data:', fullPandemicDataset);
-
-populateCountrySuggestions(); // Function call to populate datalist for searchbar
+// Function call to populate datalist for searchbar
 populateCountrySuggestions("search-container", "country-options");
 populateCountrySuggestions("compare-country-code", "compare-options");
 
@@ -144,7 +141,7 @@ var countries = d3.json("data/mapPolygonData").then(function(data) {
                 .attr("stroke", clickColour)
                 .attr("stroke-width", clickStrokeWeight);
         
-            // Optional zoom
+            // Optional zoom mode
             if (zoomMode) {
                 const bounds = path.bounds(d);
                 const dx = bounds[1][0] - bounds[0][0];
@@ -193,7 +190,7 @@ d3.select("#zoom-toggle-button")
         if (zoomMode) {
             d3.select("#zoom-icon").text("public"); // Earth Mode icon
 
-            // 👉 If a country is already selected, zoom into it immediately
+            // If a country is already selected, zoom into it immediately
             if (appState.selectedCountryCode) {
                 zoomToSelectedCountry();
             }
@@ -219,6 +216,7 @@ function zoomToSelectedCountry() {
             feature => feature.properties.iso_a3 === appState.selectedCountryCode
         );
 
+        // Calculate bounds and zoom
         if (selectedFeature) {
             const bounds = path.bounds(selectedFeature);
             const dx = bounds[1][0] - bounds[0][0];
@@ -349,11 +347,6 @@ function renderCountryDetails() {
     let currentWeek = appState.currentWeek;
 
     if (data[currentWeek]) {
-        // detailDiv.html(`
-        //     Cases: ${data[currentWeek].cases}<br/>
-        //     Deaths: ${data[currentWeek].deaths}<br/>
-        //     Susceptible: ${appState.countryPandemicData.properties.population - data[currentWeek].cases - data[currentWeek].deaths}
-        // `);
         detailDiv.html(`
             <span style="color: red">Cases: </span>: ${data[currentWeek].cases}
             &nbsp;&nbsp;
@@ -401,38 +394,38 @@ d3.select("#play-button")
         }
     });
 
-    function startAnimation() {
-        isPlaying = true;
-        d3.select("#play-icon").text("pause"); // Material Icon name = "pause"
-    
-        animationInterval = setInterval(() => {
-            let currentIndex = datesArray.indexOf(appState.currentWeek);
-    
-            if (currentIndex < datesArray.length - 1) {
-                const nextIndex = currentIndex + 1;
-                const nextWeek = datesArray[nextIndex];
-                appState.currentWeek = nextWeek;
-    
-                slider.value(nextIndex); // Move the slider
-                d3.select('#timeline-date').text(`Week: ${nextWeek}`);
-    
-                updateMapColors();
-                renderCountryDetails();
-            } else {
-                pauseAnimation(); // Stop at end
-            }
-        }, 1000); // adjust speed as needed
-    }
-    
-    function pauseAnimation() {
-        isPlaying = false;
-        d3.select("#play-icon").text("play_arrow"); // Material Icon name = "play_arrow"
-    
-        if (animationInterval) {
-            clearInterval(animationInterval);
-            animationInterval = null;
+function startAnimation() {
+    isPlaying = true;
+    d3.select("#play-icon").text("pause"); // Material Icon name = "pause"
+
+    animationInterval = setInterval(() => {
+        let currentIndex = datesArray.indexOf(appState.currentWeek);
+
+        if (currentIndex < datesArray.length - 1) {
+            const nextIndex = currentIndex + 1;
+            const nextWeek = datesArray[nextIndex];
+            appState.currentWeek = nextWeek;
+
+            slider.value(nextIndex); // Move the slider
+            d3.select('#timeline-date').text(`Week: ${nextWeek}`);
+
+            updateMapColors();
+            renderCountryDetails();
+        } else {
+            pauseAnimation(); // Stop at end
         }
+    }, 1000); // adjust speed as needed
+}
+    
+function pauseAnimation() {
+    isPlaying = false;
+    d3.select("#play-icon").text("play_arrow"); // Material Icon name = "play_arrow"
+
+    if (animationInterval) {
+        clearInterval(animationInterval);
+        animationInterval = null;
     }
+}
 
 const searchInput = document.getElementById('search');
 
@@ -469,6 +462,7 @@ function populateCountrySuggestions(inputId, datalistId = 'country-options') {
     }
 }
 
+// Function to handle country search
 function handleCountrySearch(query) {
     const matchingCountry = Object.values(fullPandemicDataset).find(country => {
         return country.properties.country.toLowerCase() === query;

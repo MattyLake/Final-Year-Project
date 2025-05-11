@@ -282,32 +282,34 @@ The steps of Waterfall I will be following are:
 \begin{enumerate}
     \item \textbf{\large{Requirements}}
     \begin{itemize}
-        \item This section requires producing and refining a set of requirements. I plan on having 2 groups of requirements: Minimum Viable Product requirements and Stretch requirements.
-        \item I plan on refining all the requirements in this stage so I can stay on this path plan.
+        \item This section involves producing and refining a set of requirements. The requirements are categorized into two groups: Minimum Viable Product requirements and Stretch requirements.
+        \item The order of priority for the requirements in this project is defined using the MoSCoW method. This approach ensures that the most critical requirements are addressed first, followed by less essential ones.
+        \item All requirements are refined during this stage to maintain a clear and structured project plan.
     \end{itemize}
     \item \textbf{\large{Analysis}}
     \begin{itemize}
-        \item In this section, I will be doing research into the problems which are discovered by my requirement refinement. I will investigate papers and other relevant published sources.
-        \item I also want to investigate node packages to represent my data graphically. (This would continue into the design section)
-        \item This section will likely take up a large section of my report, and I may return to this section midway through the project.
+        \item This section involves conducting research into the problems identified during the requirement refinement process. Relevant papers and other published sources are investigated to provide insights.
+        \item Additionally, an exploration of node packages suitable for graphical data representation is undertaken. This investigation may extend into the design phase.
+        \item This section is expected to occupy a significant portion of the report, with potential revisits during the project's progression.
     \end{itemize}
     \item \textbf{\large{Design}}
     \begin{itemize}
-        \item I would be designing the layout and colour scheme of my application as it would appear in a browser window. It is worth noting that different size screens would render it differently, so I need to take that into account when planning.
-        \item I am not using a database for this project, but I will be using JSON and creating a standard design for objects in JSON will be beneficial.
-        \item I need to decide what values I use for graphs and what kind of graphs to use.
+        \item The layout and colour scheme of the application would be designed as it would appear in a browser window. Consideration would be given to how different screen sizes might render the application differently, ensuring a responsive design.
+        \item Although a database is not being used for this project, JSON will be utilized, and creating a standardized design for objects in JSON would be advantageous.
+        \item Decisions would be made regarding the values to be used for graphs and the types of graphs that would best represent the data.
     \end{itemize}
     \item \textbf{\large{Coding}}
     \begin{itemize}
-        \item I will be making a web application with node.js. This will require me to create a valid work environment and get the node runtime working on my local machine. I will likely use Docker for this since it is a very easy to work with tool perfect for this application.
-        \item I will mostly be using JavaScript for this project because of previous experience and native compatibility with web development. There will also be HTML and CSS for loading the d3 canvas and aligning elements.
+        \item The coding is for a web application with node.js. This will require creation a valid work environment and get the node runtime working on my local machine. The deployment will likely use Docker for this since it is a very easy to work with tool perfect for this application.
+        \item The project primarily utilizes JavaScript due to its native compatibility with web development. Additionally, HTML and CSS are employed for loading the D3.js SVGs and aligning elements.
         \item Node.js also comes with node package manager which will also be useful for loading the custom packages I plan on using in this project.
     \end{itemize}
-    \item \textbf{\large{Testing}}
+    \item \textbf{\large{Testing and Review}}
     \begin{itemize}
         \item For testing, I will be using a variety of normal, boundary and erroneous tests to check my software for crashes, unexpected results, and vulnerabilities.
-        \item I also plan on having 3rd-party applicants to test my application. They would have a list of things to do in the application so I can analyse the ease of use.
-        \item I would also ask them to fill in a questionnaire.
+        \item Testing will consist of having 3rd-party applicants to test my application. They would have a list of things to do in the application so I can analyse the ease of use.
+        \item The testing will abide by all university ethics guidelines and an informed consent form will be signed by the testers after seeing a participant information sheet and relevant risk assessment.
+        \item The testers will complete an activity using the tool to extract data and then complete a questionnaire. The questionnaire will ask about the ease of use, the design and the functionality of the application.
         \item I will use the feedback from the testers to improve my application.
     \end{itemize}
     \item \textbf{\large{Operations}}
@@ -745,7 +747,7 @@ In my Dockerfile, I used the node.js runtime as the base image, and then copied 
 For this section, I conducted user testing on my application. I lead the testers through an activity where they had to use the application and extract information from it. I then asked them what they thought of the application and if they had any suggestions for improvement.\\
 
 I followed the LEON ethics guidelines for this project, producing an informed consent form, participant information sheet, risk assessment and an approved questionnaire. I also made sure to anonymise the data and not use any personal information.
-\section{User Testing}
+\section{User Testing and Review}
 The first set of questions was in regards to the UI and UX of the application and how easy it was to use. These were the questions asked:\\ \\
 \textbf{Question 1: }By clicking the country, select Egypt\\
 \textbf{Question 2: }Using the zoom button, zoom into Egypt.\\
@@ -940,7 +942,7 @@ I have created a tool which can be used to visualise and analyse an arbitrary pa
         rate_14_day = entry.get("rate_14_day", 0.0)
     
         ################################################################
-        # AMMEND THIS AREA TO FIX TO YOUR OWN JSON FILE
+        # AMEND THIS AREA TO FIX TO YOUR OWN JSON FILE
         
         # Store values based on indicator type
         if indicator == "cases":
