@@ -36,7 +36,7 @@ To run the application locally on a node.js runtime, follow:
 `npm install`
 4. Start the node.js runtime
 `npm start`
-5. The application should be at `http://localhost:8080/`
+5. The application should be at `[http://localhost:8080/](http://localhost:8080/)`
 
 ## Deploying to a Docker Container
 
@@ -51,7 +51,7 @@ To deploy the application to a server, use the docker daemon.
 `docker build -t pandemic-visualiser-app .`
 5. Run the Docker image
 `docker run -p 8080:8080 pandemic-visualiser-app`
-6. The application should be at `http://localhost:8080/`, or through a specified domain through up-porting.
+6. The application should be at `[http://localhost:8080/](http://localhost:8080/)`, or through a specified domain through up-porting.
 
 ## Accessing the Report
 
